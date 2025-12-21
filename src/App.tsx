@@ -1,26 +1,71 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import logo from './assets/logo.png';
+
+/* Pages */
+import Index from './pages/Index';
+import Home from './pages/HomePage';
+import Products from './pages/ProductListingPage';
+import Orders from './pages/OrdersPage';
+import Account from './pages/AccountPage';
+import Cart from './pages/CartPage';
+import MainLayout from './layouts/MainLayout';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Welcome to Uniform91</h1>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload. ;D
-        </p>
-        <a
-          className="App-link"
-          href="https://react.dev/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn More
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+        <Routes>
+
+          {/*k có navbar */}
+          <Route path="/" element={<Index />} />
+
+          {/* Các trang trong app – có bottom navbar */}
+          <Route
+              path="/home"
+              element={
+                <MainLayout>
+                  <Home />
+                </MainLayout>
+              }
+          />
+
+          <Route
+              path="/products"
+              element={
+                <MainLayout>
+                  <Products />
+                </MainLayout>
+              }
+          />
+
+          <Route
+              path="/orders"
+              element={
+                <MainLayout>
+                  <Orders />
+                </MainLayout>
+              }
+          />
+
+          <Route
+              path="/account"
+              element={
+                <MainLayout>
+                  <Account />
+                </MainLayout>
+              }
+          />
+            <Route
+                path="/cart"
+                element={
+                    <MainLayout>
+                        <Cart />
+                    </MainLayout>
+                }
+            />
+
+        </Routes>
+      </BrowserRouter>
   );
 }
 
