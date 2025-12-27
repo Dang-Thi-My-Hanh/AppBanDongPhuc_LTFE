@@ -7,7 +7,7 @@ export const categories = [
         image: '/assets/categories/school.jpg',
     },
     {
-        id: 'factory',
+        id: 'company',
         name: 'Đồng phục Công sở',
         image: '/assets/categories/company.jpg',
     },
