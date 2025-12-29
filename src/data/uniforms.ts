@@ -2,10 +2,10 @@
 const uniforms = [
     {
         id: 1,
-        name: "Áo Polo Đồng Phục Công Sở",
+        name: "Office Uniform Polo Shirt",
         price: 179000,
         description:
-            "Áo polo chất liệu cotton 65/35, thoáng mát, phù hợp cho nhân viên văn phòng.",
+            "65/35 cotton polo shirt, breathable, suitable for office staff.",
         category: "Company",
         images: [
             "/images/polo_front_main.jpg",
@@ -19,17 +19,18 @@ const uniforms = [
             { size: "L", stock: 445 },
             { size: "XL", stock: 231 },
         ],
-        colors: ["Trắng", "Xanh Navy", "Đen"],
-        genders: ["Nam", "Nữ"],
-        allowLogoUpload: true,
+        colors: ["White", "Navy Blue", "Black"],
+        genders: ["Male", "Female"],
+        style: "Polo",
+        allowLogoUpload: true
     },
 
     {
         id: 2,
-        name: "Áo Sơ Mi Đồng Phục Công Ty",
+        name: "Company Uniform Shirt",
         price: 219000,
         description:
-            "Áo sơ mi dài tay, form chuẩn, thích hợp môi trường công sở chuyên nghiệp.",
+            "Long-sleeved shirt, standard fit, suitable for a professional office environment.",
         category: "Company",
         images: [
             "/images/shirt_front.jpg",
@@ -42,17 +43,18 @@ const uniforms = [
             { size: "XL", stock: 346 },
             { size: "XXL", stock: 328 },
         ],
-        colors: ["Trắng", "Xanh Nhạt"],
-        genders: ["Nam", "Nữ"],
-        allowLogoUpload: true,
+        colors: ["White", "Light Blue"],
+        genders: ["Male", "Female"],
+        style: "Shirt",
+        allowLogoUpload: true
     },
 
     {
         id: 3,
-        name: "Quần Tây Đồng Phục Công Sở",
+        name: "Office Uniform Trousers",
         price: 319000,
         description:
-            "Quân tây dài, form chuẩn, thích hợp môi trường công sở chuyên nghiệp.",
+            "Long trousers, standard fit, suitable for a professional office environment.",
         category: "Company",
         images: [
             "/images/pants_front.jpg",
@@ -65,17 +67,18 @@ const uniforms = [
             { size: "XL", stock: 219 },
             { size: "XXL", stock: 523 },
         ],
-        colors: ["Đen", "Xanh Đen"],
-        genders: ["Nam", "Nữ"],
-        allowLogoUpload: false,
+        colors: ["Black", "Dark Blue"],
+        genders: ["Male", "Female"],
+        style: "Pants",
+        allowLogoUpload: false
     },
 
     {
         id: 4,
-        name: "Chân Váy Đồng Phục Công Sở",
+        name: "Office Uniform Skirt",
         price: 289000,
         description:
-            "Chân váy ngắn, form chuẩn, thích hợp môi trường công sở chuyên nghiệp.",
+            "Short skirt, standard fit, suitable for a professional office environment.",
         category: "Company",
         images: [
             "/images/skirt_front.jpg",
@@ -88,16 +91,17 @@ const uniforms = [
             { size: "XL", stock: 89 },
             { size: "XXL", stock: 52 },
         ],
-        colors: ["Đen", "Xanh Đen"],
-        allowLogoUpload: false,
+        colors: ["Black", "Dark Blue"],
+        style: "Skirt",
+        allowLogoUpload: false
     },
 
     {
         id: 5,
-        name: "Đồng Phục Công Sở",
+        name: "Full Office Uniform Set",
         price: 799000,
         description:
-            "Đồng phục form chuẩn, thích hợp môi trường công sở chuyên nghiệp.",
+            "Standard fit uniform set, suitable for a professional office environment.",
         category: "Company",
         images: [
             "/images/man_front.jpg",
@@ -112,17 +116,18 @@ const uniforms = [
             { size: "XL", stock: 389 },
             { size: "XXL", stock: 223 },
         ],
-        colors: ["Đen", "Xanh Đen"],
-        genders:["Nam", "Nữ"],
+        colors: ["Black", "Dark Blue"],
+        genders:["Male", "Female"],
+        style: "Set",
         allowLogoUpload: true,
     },
 
     {
         id: 6,
-        name: "Đồng Phục Học Sinh Trung Học Cở Sở,Phổ Thông",
+        name: "Middle & High School Student Uniform",
         price: 269000,
         description:
-            "Đồng phục học sinh vải kate, bền màu, dễ giặt ủi.",
+            "Student uniform made of Kate fabric, colorfast, easy to wash and iron.",
         category: "School",
         images: [
             "/images/studentgirl_uniform_front.jpg",
@@ -137,16 +142,17 @@ const uniforms = [
             { size: "M", stock: 355 },
             { size: "L", stock: 256 },
         ],
-        genders:["Nam", "Nữ"],
+        genders:["Male", "Female"],
+        style: "Shirt",
         allowLogoUpload: true,
     },
 
     {
         id: 7,
-        name: "Đồng Phục Học Sinh Mầm Non",
+        name: "Kindergarten Student Uniform",
         price: 159000,
         description:
-            "Đồng phục học sinh vải kate, bền màu, dễ giặt ủi.",
+            "Student uniform made of Kate fabric, colorfast, easy to wash and iron.",
         category: "School",
         images: [
             "/images/studentgirl_uniform_front.jpg",
@@ -161,16 +167,17 @@ const uniforms = [
             { size: "M", stock: 557 },
             { size: "L", stock: 362 },
         ],
-        genders:["Nam", "Nữ"],
+        genders:["Male", "Female"],
+        style: "Set",
         allowLogoUpload: true,
     },
 
     {
         id: 8,
-        name: "Đồng Phục Học Sinh Tiểu Học",
+        name: "Primary School Student Uniform",
         price: 109000,
         description:
-            "Đồng phục học sinh vải kate, bền màu, dễ giặt ủi.",
+            "Student uniform made of Kate fabric, colorfast, easy to wash and iron.",
         category: "School",
         images: [
             "/images/studentgirl_uniform_front.jpg",
@@ -185,16 +192,17 @@ const uniforms = [
             {size: "M", stock: 372},
             {size: "L", stock: 199},
         ],
-        genders: ["Nam", "Nữ"],
+        genders: ["Male", "Female"],
+        style: "Shirt",
         allowLogoUpload: true,
     },
 
     {
         id: 9,
-        name: "Áo Thanh Niên Việt Nam",
+        name: "Vietnamese Youth Union Shirt",
         price: 119000,
         description:
-            "Áo Thanh Niên vải cotton, bền màu, dễ giặt ủi.",
+            "Youth Union shirt, cotton fabric, colorfast, easy to wash and iron.",
         category: "School",
         images: [
             "/images/Shirt_uniform_front.jpg",
@@ -207,16 +215,17 @@ const uniforms = [
             {size: "M", stock: 351},
             {size: "L", stock: 203},
         ],
-        genders: ["Nam", "Nữ"],
+        genders: ["Male", "Female"],
+        style: "Shirt",
         allowLogoUpload: false,
     },
 
     {
         id: 10,
-        name: "Áo Dài",
+        name: "Ao Dai (Traditional Dress)",
         price: 499000,
         description:
-            "Áo dài nữ vải đa dạng,thoải mái, dễ giặt ủi.",
+            "Women's Ao Dai in diverse fabrics, comfortable, easy to wash.",
         category: "School",
         images: [
             "/images/Shirt_uniform_front.jpg",
@@ -229,16 +238,17 @@ const uniforms = [
             {size: "M", stock: 352},
             {size: "L", stock: 247},
         ],
-        types:["Lụa", "Chiffon", "Voan"],
-        allowLogoUpload: false,
+        types:["Silk", "Chiffon", "Voile"],
+        style: "Set",
+        allowLogoUpload: false
     },
 
     {
         id: 11,
-        name: "Đồng Phục Bảo Hộ Lao Động",
+        name: "Labor Protection Uniform",
         price: 320000,
         description:
-            "Đồng phục bảo hộ vải kaki dày, chống bám bụi, an toàn lao động.",
+            "Protective uniform made of thick kaki, dust-resistant, ensures work safety.",
         category: "Factory",
         images: [
             "/images/baoho_front.jpg",
@@ -253,17 +263,18 @@ const uniforms = [
             { size: "XL", stock: 112 },
             { size: "XXL", stock: 442 },
         ],
-        colors: ["Cam", "Xanh Dương", "Xám"],
-        genders:["Nam", "Nữ"],
+        colors: ["Orange", "Blue", "Grey"],
+        genders:["Male", "Female"],
+        style: "Jacket",
         allowLogoUpload: true,
     },
 
     {
         id: 12,
-        name: "Đồng Phục Công Nhân Nhà Máy",
+        name: "Factory Worker Uniform",
         price: 310000,
         description:
-            "Đồng phục bảo hộ vải cotton, chống bám bụi, an toàn lao động.",
+            "Protective uniform made of cotton, dust-resistant, ensures work safety.",
         category: "Factory",
         images: [
             "/images/baoho_front.jpg",
@@ -278,17 +289,18 @@ const uniforms = [
             { size: "XL", stock: 121 },
             { size: "XXL", stock: 412 },
         ],
-        colors: ["Cam", "Xanh Dương", "Xám"],
-        genders:["Nam", "Nữ"],
+        colors: ["Orange", "Blue", "Grey"],
+        genders:["Male", "Female"],
+        style: "Jacket",
         allowLogoUpload: true,
     },
 
     {
         id: 13,
-        name: "Đồng Phục Kỹ Sư Xây Dựng",
+        name: "Construction Engineer Uniform",
         price: 139000,
         description:
-            "Đồng phục vải kate, chống bám bụi, an toàn lao động.",
+            "Uniform made of Kate fabric, dust-resistant, ensures work safety.",
         category: "Factory",
         images: [
             "/images/baoho_front.jpg",
@@ -303,16 +315,17 @@ const uniforms = [
             { size: "XL", stock: 112 },
             { size: "XXL", stock: 90 },
         ],
-        colors: ["Cam", "Xanh Dương", "Xám"],
-        genders:["Nam", "Nữ"],
+        colors: ["Orange", "Blue", "Grey"],
+        genders:["Male", "Female"],
+        style: "Shirt",
         allowLogoUpload: true,
     },
     {
         id: 14,
-        name: "Đồng Phục Công Nhân Xây Dựng",
+        name: "Construction Worker Uniform Set",
         price: 6990000,
         description:
-            "Đồng phục bảo hộ vải kaki, chống bám bụi, an toàn lao động.",
+            "Protective uniform made of kaki, dust-resistant, ensures work safety.",
         category: "Factory",
         images: [
             "/images/baoho_front.jpg",
@@ -327,18 +340,19 @@ const uniforms = [
             { size: "XL", stock: 114 },
             { size: "XXL", stock: 68 },
         ],
-        colors: ["Cam", "Xanh Dương", "Xám"],
-        genders:["Nam", "Nữ"],
-        types:["Nón","Giày","Quần","Áo"],
+        colors: ["Orange", "Blue", "Grey"],
+        genders:["Male", "Female"],
+        types:["Hat","Shoes","Pants","Shirt"],
+        style: "Set",
         allowLogoUpload: true,
     },
 
     {
         id: 15,
-        name: "Đồng Phục Phòng Thí Nghiệm",
+        name: "Laboratory Uniform",
         price: 4290000,
         description:
-            "Đồng phục bảo hộ vải polyeste, chống chất độc hại, vi sinh vật.",
+            "Protective uniform made of polyester, resistant to toxic substances and microorganisms.",
         category: "Factory",
         images: [
             "/images/baoho_front.jpg",
@@ -353,18 +367,19 @@ const uniforms = [
             { size: "XL", stock: 110 },
             { size: "XXL", stock: 60 },
         ],
-        genders:["Nam", "Nữ"],
-        types:["Áo", "Quần"],
+        genders:["Male", "Female"],
+        //types:["Shirt", "Pants"],
+        style: "Jacket",
         allowLogoUpload: true,
     },
 
 
     {
         id: 16,
-        name: "Áo Thun Sự Kiện",
+        name: "Event T-Shirt",
         price: 95000,
         description:
-            "Áo thun cổ tròn dùng cho sự kiện, team building, in logo theo yêu cầu.",
+            "Round neck T-shirt for events, team building, custom logo printing available.",
         category: "Event",
         images: [
             "/images/event_tshirt_front.jpg",
@@ -377,17 +392,18 @@ const uniforms = [
             { size: "L", stock: 544 },
             { size: "XL", stock: 400 },
         ],
-        colors: ["Trắng", "Đỏ", "Xanh Lá", "Đen"],
-        genders:["Nam","Nữ"],
+        colors: ["White", "Red", "Green", "Black"],
+        genders:["Male","Female"],
+        style: "T-shirt",
         allowLogoUpload: true,
     },
 
     {
         id: 17,
-        name: "Áo Polo Sự Kiện",
+        name: "Event Polo Shirt",
         price: 99000,
         description:
-            "Áo polo tròn dùng cho sự kiện, team building, in logo theo yêu cầu.",
+            "Polo shirt for events, team building, custom logo printing available.",
         category: "Event",
         images: [
             "/images/event_polo_front.jpg",
@@ -400,17 +416,18 @@ const uniforms = [
             { size: "L", stock: 125 },
             { size: "XL", stock: 655 },
         ],
-        colors: ["Trắng", "Đỏ", "Xanh Lá", "Đen"],
-        genders:["Nam","Nữ"],
+        colors: ["White", "Red", "Green", "Black"],
+        genders:["Male","Female"],
+        style: "Polo",
         allowLogoUpload: true,
     },
 
     {
         id: 18,
-        name: "Áo Vest Sự Kiện",
+        name: "Event Suit Jacket (Vest)",
         price: 599000,
         description:
-            "Áo vest dùng cho dịp đặc biệt, thể hiện sự sang trọng, chuyên nghiệp",
+            "Suit jacket for special occasions, demonstrating luxury and professionalism.",
         category: "Event",
         images: [
             "/images/event_vest_front.jpg",
@@ -423,17 +440,18 @@ const uniforms = [
             { size: "L", stock: 534 },
             { size: "XL", stock: 367 },
         ],
-        colors: ["Đen","Xanh Đen"],
-        genders:["Nam","Nữ"],
+        colors: ["Black","Dark Blue"],
+        genders:["Male","Female"],
+        style: "Vest",
         allowLogoUpload: false,
     },
 
     {
         id: 19,
-        name: "Áo Gile Sự Kiện",
+        name: "Event Waistcoat / Gile",
         price: 399000,
         description:
-            "Áo gile dùng cho dịp đặc biệt, thể hiện sự sang trọng, chuyên nghiệp",
+            "Waistcoat for special occasions, demonstrating luxury and professionalism.",
         category: "Event",
         images: [
             "/images/event_gile_front.jpg",
@@ -446,17 +464,18 @@ const uniforms = [
             { size: "L", stock: 543 },
             { size: "XL", stock: 512 },
         ],
-        colors: ["Đen","Xanh Đen"],
-        genders:["Nam","Nữ"],
+        colors: ["Black","Dark Blue"],
+        genders:["Male","Female"],
+        style: "Vest",
         allowLogoUpload: false,
     },
 
     {
         id: 20,
-        name: "Áo Sơ Mi Sự Kiện",
+        name: "Event Dress Shirt",
         price: 259000,
         description:
-            "Áo sơ mi dùng cho dịp cần sang trọng,lịch sự, chuyên nghiệp",
+            "Shirt for occasions requiring luxury, politeness, and professionalism.",
         category: "Event",
         images: [
             "/images/event_shirt_front.jpg",
@@ -469,17 +488,18 @@ const uniforms = [
             { size: "L", stock: 341 },
             { size: "XL", stock: 241 },
         ],
-        colors: ["Đen","Xanh Nhạt"],
-        genders:["Nam","Nữ"],
+        colors: ["Black","Light Blue"],
+        genders:["Male","Female"],
+        style: "Shirt",
         allowLogoUpload: false,
     },
 
     {
         id: 21,
-        name: "Áo Thể Thao",
+        name: "Sports T-Shirt",
         price: 119000,
         description:
-            "Áo thể thao vải tổng hợp, thoáng mát, co giãn tốt",
+            "Sports shirt, synthetic fabric, breathable, good elasticity.",
         category: "Sport",
         images: [
             "/images/sport_shirt_front.jpg",
@@ -492,17 +512,18 @@ const uniforms = [
             { size: "L", stock: 542 },
             { size: "XL", stock: 328 },
         ],
-        colors: ["Đen", "Trắng", "Xanh","Xám"],
-        genders:["Nam","Nữ"],
+        colors: ["Black", "White", "Blue","Grey"],
+        genders:["Male","Female"],
+        style: "T-shirt",
         allowLogoUpload: false,
     },
 
     {
         id: 22,
-        name: "Áo Croptop Thể Thao Dành Cho Nữ",
+        name: "Women's Sports Croptop",
         price: 89000,
         description:
-            "Áo croptop nữ vải tổng hợp, thoáng mát, co giãn tốt",
+            "Women's croptop, synthetic fabric, breathable, good elasticity.",
         category: "Sport",
         images: [
             "/images/sport_croptop_front.jpg",
@@ -515,16 +536,17 @@ const uniforms = [
             { size: "L", stock: 534 },
             { size: "XL", stock: 475 },
         ],
-        colors: ["Đen", "Trắng", "Xanh","Xám"],
+        colors: ["Black", "White", "Blue","Grey"],
+        style: "T-shirt",
         allowLogoUpload: false,
     },
 
     {
         id: 23,
-        name: "Quần Dài Thể Thao ",
+        name: "Sports Pants",
         price: 139000,
         description:
-            "Quần Dài thể thao vải tổng hợp, thoáng mát, co giãn tốt",
+            "Long sports pants, synthetic fabric, breathable, good elasticity.",
         category: "Sport",
         images: [
             "/images/sport_pants_front.jpg",
@@ -537,16 +559,17 @@ const uniforms = [
             { size: "L", stock: 164 },
             { size: "XL", stock: 462 },
         ],
-        colors: ["Đen", "Xám"],
-        genders:["Nam", "Nữ"],
+        colors: ["Black", "Grey"],
+        genders:["Male", "Female"],
+        style: "Pants",
         allowLogoUpload: false,
     },
     {
         id: 24,
-        name: "Chân Váy Thể Thao",
+        name: "Sports Skirt",
         price: 149000,
         description:
-            "Chân váy thể thao vải tổng hợp, thoáng mát, co giãn tốt",
+            "Sports skirt, synthetic fabric, breathable, good elasticity.",
         category: "Sport",
         images: [
             "/images/sport_skirt_front.jpg",
@@ -559,16 +582,17 @@ const uniforms = [
             { size: "L", stock: 549 },
             { size: "XL", stock: 399 },
         ],
-        colors: ["Đen", "Trắng", "Xanh","Xám"],
+        colors: ["Black", "White", "Blue","Grey"],
+        style: "Skirt",
         allowLogoUpload: false,
     },
 
     {
         id: 25,
-        name: "Quần Short Thể Thao Nam",
+        name: "Men's Sports Shorts",
         price: 99000,
         description:
-            "Quần short thể thao vải tổng hợp, thoáng mát, co giãn tốt",
+            "Sports shorts, synthetic fabric, breathable, good elasticity.",
         category: "Sport",
         images: [
             "/images/sport_short_front.jpg",
@@ -581,16 +605,17 @@ const uniforms = [
             { size: "L", stock: 242 },
             { size: "XL", stock: 403 },
         ],
-        colors: ["Đen","Xám"],
+        colors: ["Black","Grey"],
+        style: "Short-Pants",
         allowLogoUpload: false,
     },
 
     {
         id: 26,
-        name: "Áo Khoác Đầu Bếp",
+        name: "Chef Jacket",
         price: 229000,
         description:
-            "Áo khoác đầu bếp vải cotton,cách nhiệt tốt, sử dụng trong nấu nướng. ",
+            "Chef jacket, cotton fabric, good heat insulation, used in cooking.",
         category: "Service",
         images: [
             "/images/sport_jacket_front.jpg",
@@ -603,17 +628,18 @@ const uniforms = [
             { size: "L", stock: 492 },
             { size: "XL", stock: 294 },
         ],
-        colors: ["Trắng"],
-        genders: ["Nam", "Nữ"],
+        colors: ["White"],
+        genders: ["Male", "Female"],
+        style: "Jacket",
         allowLogoUpload: true,
     },
 
     {
         id: 27,
-        name: "Đồng phục Phục Vụ",
+        name: "Server Uniform",
         price: 149000,
         description:
-            "Đồng phục vải cotton, ít nhăn, giữ màu tốt",
+            "Uniform made of cotton, wrinkle-resistant, good color retention.",
         category: "Service",
         images: [
             "/images/service_girl'suniform_front.jpg",
@@ -628,17 +654,18 @@ const uniforms = [
             { size: "L", stock: 351 },
             { size: "XL", stock: 392 },
         ],
-        colors: ["Đen", "Trắng", "Xanh","Xám"],
-        genders: ["Nam","Nữ"],
+        colors: ["Black", "White", "Blue","Grey"],
+        genders: ["Male","Female"],
+        style: "Shirt",
         allowLogoUpload: true,
     },
 
     {
         id: 28,
-        name: "Đồng phục Thẩm Mỹ Viện",
+        name: "Beauty Salon / Spa Uniform",
         price: 399000,
         description:
-            "Đồng phục vải cotton,áo vest lịch sự, giữ màu tốt",
+            "Uniform made of cotton, polite vest style, good color retention.",
         category: "Service",
         images: [
             "/images/service_girl'suniform_front.jpg",
@@ -653,17 +680,18 @@ const uniforms = [
             { size: "L", stock: 549 },
             { size: "XL", stock: 389 },
         ],
-        colors: ["Đen", "Trắng", "Hồng","Đỏ"],
-        genders: ["Nam","Nữ"],
+        colors: ["Black", "White", "Pink","Red"],
+        genders: ["Male","Female"],
+        style: "Set",
         allowLogoUpload: true,
     },
 
     {
         id: 29,
-        name: "Áo Khoác Giao Hàng",
+        name: "Delivery Driver Jacket",
         price: 139000,
         description:
-            "Áo khoác cách nhiệt, chống nắng tốt",
+            "Jacket with heat insulation and good sun protection.",
         category: "Service",
         images: [
             "/images/service_grab_front.jpg",
@@ -686,15 +714,16 @@ const uniforms = [
             { size: "XL", stock: 501 },
         ],
         types:["Grab","Be","Xanh SM","ShopeeFood","Ahamove"],
+        style: "Jacket",
         allowLogoUpload: false,
     },
 
     {
         id: 30,
-        name: "Đồng phục Nhà Hàng",
+        name: "Restaurant Uniform",
         price: 279000,
         description:
-            "Đồng phục vải kaki, ít nhăn, giữ màu tốt",
+            "Uniform made of kaki, wrinkle-resistant, good color retention.",
         category: "Service",
         images: [
             "/images/service_girl'suniform_front.jpg",
@@ -710,18 +739,19 @@ const uniforms = [
             { size: "L", stock: 553 },
             { size: "XL", stock: 398 },
         ],
-        colors: ["Vàng", "Trắng", "Đỏ","Xanh"],
-        genders: ["Nam","Nữ"],
+        colors: ["Yellow", "White", "Red","Blue"],
+        genders: ["Male","Female"],
+        style: "Set",
         allowLogoUpload: true,
     },
 
     {
         id: 31,
-        name: "Sản phẩm thiết kế riêng",
+        name: "Custom Design Product",
         price: 450000,
         description:
-            "Sản phẩm được làm theo theo yêu cầu của khách hàng.",
-        category: "cac-san-pham-khac",
+            "Product made according to customer requirements.",
+        category: "other-products",
         images: [
             "/images/design.jpg",
             "/images/design.jpg",
@@ -733,7 +763,8 @@ const uniforms = [
             { size: "L", stock: 5280 },
             { size: "XL", stock: 3970 },
         ],
-        types: ["Theo Yêu Cầu"],
+        types: ["On Request"],
+        style: "Custom",
         allowLogoUpload: true,
     },
 
