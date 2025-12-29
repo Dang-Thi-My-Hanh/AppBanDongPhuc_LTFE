@@ -35,7 +35,7 @@ const uniforms = [
             "Long-sleeved shirt, standard fit, suitable for a professional office environment.",
         category: "Company",
         images: [
-            "/images/AoSoMiDongPhuc/trang.jpg",
+            "/images/AoSoMiDongPhuc/trang.png",
             "/images/AoSoMiDongPhuc/xanh.jpg",
             "/images/AoSoMiDongPhuc/navy.jpg",
         ],
