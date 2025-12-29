@@ -1,14 +1,16 @@
 import React from "react";
-import cart from "../../assets/icon/products/cart.svg"
+import { ReactComponent as CartIcon } from "../../assets/icon/products/cart.svg"
 const ProductCard = ({ name, price, image }: any) => {
     return (
-        <div className="ProductCard">
+        <div className="product-card">
             <img src={image} alt="name" />
             <p className="product-name">{name}</p>
 
           <div className="product-footer">
-             <span className="product-price">{price} VND</span>
-              <button className="cart">{cart}</button>
+             <span className="product-price">{price.toLocaleString()}VND</span>
+              <div className="cart">
+                  <CartIcon width="20px" height="20px"/>
+              </div>
           </div>
         </div>
     );
