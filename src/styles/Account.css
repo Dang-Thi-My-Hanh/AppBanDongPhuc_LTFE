@@ -1,0 +1,200 @@
+body {
+    margin: 0;
+}
+/* ===== RESET NHẸ ===== */
+.account-page {
+
+    max-width: 420px;
+    margin: 5px auto;
+    background-color: #f6f7f9;
+    font-family: Arial, sans-serif;
+
+}
+/* ===== PROFILE ===== */
+.account-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 16px auto;
+}
+
+.account-profile .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    border: 1px solid #ddd;
+}
+.account-profile .info h3 {
+    margin: 0 auto;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.account-profile .info p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #777;
+}
+.logout-btn {
+    margin-top: 8px;
+    background: none;
+    border: none;
+    color: #d32f2f;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    text-decoration: underline;
+}
+
+
+/* ===== TABS ===== */
+.account-tabs {
+    display: flex;
+    background: #fff;
+    border-radius: 12px;
+    margin: 5px auto;
+    overflow: hidden;
+}
+
+.account-tabs .tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 14px;
+    cursor: pointer;
+    color: #777;
+}
+
+.account-tabs .tab.active {
+    color: #2f80ed;
+    font-weight: 600;
+    border-bottom: 2px solid #2f80ed;
+}
+
+/* ===== SECTION CHUNG ===== */
+.account-section {
+    background: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+.address-text {
+    font-weight: 600; /* in đậm đẹp, không quá gắt */
+}
+/* header của mỗi section */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.section-header h4 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.section-header button {
+    background: none;
+    border: none;
+    color: #2f80ed;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* ===== SHIPPING ADDRESS ===== */
+.account-section p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.map-placeholder {
+    height: 150px;
+    background: #eaeaea;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #888;
+    margin: 0 auto;                 /* căn giữa theo chiều ngang */
+    border: 2px solid #f2c94c;
+}
+
+/* ===== CONTACT INFO ===== */
+.account-section input {
+    width: 70%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    background: #f9f9f9;
+}
+
+/* ===== PAYMENT METHODS ===== */
+.account-section label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.account-section label:hover {
+    background-color: #f5f5f5;
+}
+
+.account-section input[type="radio"] {
+    width: auto;
+    flex: 0 0 auto;
+    margin: 0;
+    cursor: pointer;
+}
+
+.payment-text {
+    flex: 1;
+    margin: 0 20px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+
+/* ===== SUPPORT ===== */
+.account-support {
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.account-support p {
+    font-size: 13px;
+    color: #555;
+    margin: 7px 9px;
+}
+
+.account-support button {
+    margin-top: 8px;
+    width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #2f80ed;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 70px;
+
+}

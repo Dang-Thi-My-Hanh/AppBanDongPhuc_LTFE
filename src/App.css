@@ -40,7 +40,6 @@
 .header {
   position: sticky;
   top: 5px;
-
   height: 60px;
   background-color: #fff;
 
@@ -121,10 +120,10 @@
 .nav-bottom-item.active {
   color: #392EBE;
 }
-.content {
+/*.content {
   padding-top: 60px;
   padding-bottom: 80px;
-}
+}*/
 .nav-bottom-item.active img {
   filter: brightness(0) saturate(100%) invert(32%) sepia(87%) saturate(2254%)
   hue-rotate(202deg) brightness(98%) contrast(101%);

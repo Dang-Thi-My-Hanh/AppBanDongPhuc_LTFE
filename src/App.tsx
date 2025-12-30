@@ -10,6 +10,8 @@ import Orders from './pages/OrdersPage';
 import Account from './pages/AccountPage';
 import Cart from './pages/CartPage';
 import MainLayout from './layouts/MainLayout';
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   return (
@@ -63,6 +65,12 @@ function App() {
                     </MainLayout>
                 }
             />
+            <Route>
+                <Route path="/login" element={<LoginPage />} />
+            </Route>
+            <Route>
+                <Route path="/signup" element={<SignupPage />} />
+            </Route>
 
         </Routes>
       </BrowserRouter>
