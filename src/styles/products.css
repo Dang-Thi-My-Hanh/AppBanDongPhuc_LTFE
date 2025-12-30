@@ -11,6 +11,7 @@
 
 /* category card */
 .category-card {
+    margin: 5px;
     background: linear-gradient(
             150deg,
             #FEC471 13%,
@@ -61,6 +62,7 @@
     display: flex;
     overflow-x: auto;
     gap: 12px;
+    padding: 8px;
 }
 
 .type-item {
@@ -160,7 +162,8 @@
 /*Trang phân loại sản phẩm*/
 .category-page {
     margin: 0px;
-    padding: 0px 12px;
+    padding: 0px;
+    width: 100%;
     position: relative;
 }
 .category-header {
@@ -171,7 +174,7 @@
     font-weight: 400;
     height: 40px;
     padding: 2px 0;
-    margin: 0;
+    margin: 5px 0px;
 }
 .sidebar-overlay {
     position: fixed;
@@ -236,6 +239,7 @@
     transform: translateX(0);
 }
 .menu-icon {
+    padding: 10px;
     font-size: 17px;
     cursor: pointer;
 }
