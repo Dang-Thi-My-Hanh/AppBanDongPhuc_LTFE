@@ -3,13 +3,13 @@ import map from "../assets/images/ImageHome/avarta/map.png";
 
 export const accountData = {
     user: {
-        name: "Đặng Thị Mỹ Hạnh",
+        name: "Dang Thi My Hanh",
         email: "hanh12345@gmail.com",
         avatar: avatar1,
         pass: "123456",
     },
     address: {
-        text: "Khu phố 6, Linh Trung, Thủ Đức, TP.HCM",
+        text: "Khu pho 6, Linh Trung, Thu Duc, TP.HCM",
         map: map,
     },
     contact: {

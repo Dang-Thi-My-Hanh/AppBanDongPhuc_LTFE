@@ -1,0 +1,98 @@
+// data/orderHistory.ts
+export const orderHistory = [
+    {
+        id: "ORD034",
+        product: {
+            id: 34,
+            name: "Custom Design Product",
+            price: 450000,
+            description: "Product made according to customer requirements.",
+            category: "other-products",
+            images: ["/images/AoPoLoDongPhucCongSo/aotrang.webp"],
+            minimumOrderQuantity: 50,
+            sizes: [
+                { size: "S", stock: 342 },
+                { size: "M", stock: 111 },
+                { size: "L", stock: 445 },
+                { size: "XL", stock: 231 },
+            ],
+            types: ["On Request"],
+            allowLogoUpload: true,
+        },
+        quantity: 12,
+        selectedSizes: ["S", "M", "L"],
+        gender: ["Male"],
+        status: "Delivered",
+        orderDate: "2026-01-04",
+        items: [
+            { size: "S", quantity: 10, gender: "Male" },
+            { size: "M", quantity: 8, gender: "Women" },
+            { size: "L", quantity: 5, gender: "Men" },
+            { size: "XL", quantity: 9, gender: "Male" },
+        ],
+        logo: "no Logo"
+    },
+    {
+        id: "ORD035",
+        product: {
+            id: 35,
+            name: "Office Uniform Polo Shirt",
+            price: 179000,
+            description: "65/35 cotton polo shirt, breathable, suitable for office staff.",
+            category: "Company",
+            images: ["/images/AoDaiTanThoi/cachtando.webp"],
+            minimumOrderQuantity: 20,
+            sizes: [
+                { size: "S", stock: 342 },
+                { size: "M", stock: 111 },
+                { size: "L", stock: 445 },
+                { size: "XL", stock: 231 },
+            ],
+            types: ["Polo"],
+            allowLogoUpload: true,
+        },
+        quantity: 5,
+        selectedSizes: ["M", "L"],
+        gender: ["Women", "Men"],
+        status: "Delivered",
+        orderDate: "2026-01-03",
+        items: [
+            { size: "S", quantity: 10, gender: "Male" },
+            { size: "M", quantity: 8, gender: "Women" },
+            { size: "L", quantity: 5, gender: "Men" },
+            { size: "XL", quantity: 9, gender: "Male" },
+        ],
+        logo: "no Logo"
+    },
+    {
+        id: "ORD036",
+        product: {
+            id: 36,
+            name: "Company T-Shirt",
+            price: 99000,
+            description: "Cotton T-Shirt, casual, suitable for all staff.",
+            category: "Company",
+            images: ["/images/AoThunSuKien/aogray.jpg"],
+            minimumOrderQuantity: 10,
+            sizes: [
+                { size: "S", stock: 100 },
+                { size: "M", stock: 120 },
+                { size: "L", stock: 80 },
+            ],
+            types: ["T-Shirt"],
+            allowLogoUpload: false,
+        },
+        quantity: 3,
+        selectedSizes: ["S", "M"],
+        gender: ["Women", "Men"],
+        status: "Delivered",
+        orderDate: "2026-01-02",
+        items: [
+            { size: "S", quantity: 10, gender: "Male" },
+            { size: "M", quantity: 8, gender: "Women" },
+            { size: "L", quantity: 5, gender: "Men" },
+            { size: "XL", quantity: 9, gender: "Male" },
+        ],
+        logo: "no Logo"
+    },
+];
