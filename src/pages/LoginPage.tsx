@@ -1,39 +1,63 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import googleIcon from "../assets/icon/login/google.png";
-import facebookIcon from "../assets/icon/login/facebook.png";
 import "../styles/login.css";
+import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { accountData } from "../data/account";
 
 function LoginPage() {
     const [userNameOrEmail, setUserNameOrEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-
     const handleLogin = () => {
         if (!userNameOrEmail || !password) {
             alert("Please enter username/email and password");
             return;
         }
 
-        const storedUser = JSON.parse(localStorage.getItem("user") || "null");
         const input = userNameOrEmail.trim().toLowerCase();
+        const cleanPassword = password.trim();
 
+        const accounts = JSON.parse(localStorage.getItem("accounts") || "[]");
+
+        // 1️⃣ ƯU TIÊN account user đăng ký (localStorage)
+        const foundLocalUser = accounts.find(
+            (acc: any) =>
+                (acc.username?.toLowerCase() === input ||
+                    acc.email?.toLowerCase() === input) &&
+                acc.password === cleanPassword
+        );
+
+        if (foundLocalUser) {
+            localStorage.setItem(
+                "currentUser",
+                JSON.stringify({ ...foundLocalUser, isLogin: true })
+            );
+            navigate("/account");
+            return;
+        }
+
+        // 2️⃣ FALLBACK: account mẫu (accountData.ts)
         if (
-            storedUser &&
-            (input === storedUser.username.toLowerCase() ||
-                input === storedUser.email.toLowerCase()) &&
-            password === storedUser.password
+            input === accountData.user.email.toLowerCase() &&
+            cleanPassword === accountData.user.pass
         ) {
             localStorage.setItem(
-                "user",
-                JSON.stringify({ ...storedUser, isLogin: true })
+                "currentUser",
+                JSON.stringify({
+                    username: accountData.user.name,
+                    email: accountData.user.email,
+                    avatar: accountData.user.avatar,
+                    isLogin: true,
+                    isMock: true,
+                })
             );
-
             navigate("/account");
-        } else {
-            alert("Username or password is incorrect!");
+            return;
         }
+
+        alert("Username / Email or password is incorrect!");
     };
+
 
     return (
         <div className="login-page">
@@ -75,13 +99,13 @@ function LoginPage() {
                 <h3>OR</h3>
 
                 <button className="social-btn google">
-                    <img src={googleIcon} alt="Google" className="social-icon" />
-                    Continue with Google
+                    <FaGoogle className="social-icon" />
+                      Continue with Google
                 </button>
 
                 <button className="social-btn facebook">
-                    <img src={facebookIcon} alt="Facebook" className="social-icon" />
-                    Continue with Facebook
+                    <FaFacebookF className="social-icon" />
+                     Continue with Facebook
                 </button>
             </div>
 

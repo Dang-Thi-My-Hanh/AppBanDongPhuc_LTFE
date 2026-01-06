@@ -26,9 +26,14 @@ function Account() {
 
     /* ================= INIT USER ================= */
     useEffect(() => {
-        const storedUser = JSON.parse(localStorage.getItem("user") || "null");
+        const storedUser = JSON.parse(
+            localStorage.getItem("currentUser") || "null"
+        );
+        if (!storedUser || !storedUser.isLogin) {
+            navigate("/login");
+            return;
+        }
 
-        // 👉 CHƯA ĐĂNG KÝ → DÙNG MOCK
         if (!storedUser || !storedUser.isLogin) {
             const mockUser = {
                 username: accountData.user.name,
@@ -73,13 +78,12 @@ function Account() {
 
         const reader = new FileReader();
         reader.onloadend = () => {
-            const updatedUser = { ...user, avatar: reader.result };
-            setUser(updatedUser);
-
-            if (!user.isMock) {
-                localStorage.setItem("user", JSON.stringify(updatedUser));
-            }
+            setUser((prev: any) => ({
+                ...prev,
+                avatar: reader.result, // chỉ dùng để render
+            }));
         };
+
         reader.readAsDataURL(file);
     };
 
@@ -200,7 +204,7 @@ function Account() {
 
                     {!isEditingAddress ? (
                         <p className="address-text">
-                            {user.address?.text || "Chưa nhập địa chỉ"}
+                            {user.address?.text || "No address provided"}
                         </p>
                     ) : (
                         <textarea className="address-input" value={addressForm.text}
@@ -234,7 +238,7 @@ function Account() {
             {/* PURCHASE HISTORY */}
             {activeTab === "history" && (
                 <section className="purchase-history">
-                    <p>Chưa có đơn hàng</p>
+                    <p>No orders yet</p>
                 </section>
             )}
 

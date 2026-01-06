@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import googleIcon from "../assets/icon/login/google.png";
-import facebookIcon from "../assets/icon/login/facebook.png";
 import "../styles/signup.css";
+import {FaFacebookF, FaGoogle} from "react-icons/fa";
 
 function SignupPage() {
     const [userName, setUserName] = useState("");
@@ -32,7 +31,14 @@ function SignupPage() {
             isLogin: false,
         };
 
-        localStorage.setItem("user", JSON.stringify(newUser));
+        const accounts = JSON.parse(
+            localStorage.getItem("accounts") || "[]"
+        );
+
+        accounts.push(newUser);
+
+        localStorage.setItem("accounts", JSON.stringify(accounts));
+
         navigate("/login");
     };
 
@@ -92,12 +98,12 @@ function SignupPage() {
                 <h3>OR</h3>
 
                 <button className="social-btn google">
-                    <img src={googleIcon} alt="Google" className="social-icon" />
+                    <FaGoogle className="social-icon" />
                     Continue with Google
                 </button>
 
                 <button className="social-btn facebook">
-                    <img src={facebookIcon} alt="Facebook" className="social-icon" />
+                    <FaFacebookF className="social-icon" />
                     Continue with Facebook
                 </button>
             </div>

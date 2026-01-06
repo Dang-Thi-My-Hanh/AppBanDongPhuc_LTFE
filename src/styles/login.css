@@ -137,13 +137,12 @@ body {
     background: #ffffff;
     margin: auto auto 16px;
     cursor: pointer;
+    gap: 7px;
 }
 
-.social-btn img.social-icon {
-    width: 20px;
-    height: 20px;
+.social-icon {
+    font-size: 18px;
 }
-
 .social-btn.google {
     border-color: #db4437;
     color: #db4437;
@@ -161,6 +160,7 @@ body {
             inset 1px 1px 3px rgba(45, 141, 170, 0.12),
             inset -1px -1px 3px rgba(18, 64, 214, 0.8);
 }
+
 
 /* ===== REGISTER ===== */
 .login-register {
