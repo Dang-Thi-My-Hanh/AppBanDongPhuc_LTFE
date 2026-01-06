@@ -1,20 +1,18 @@
 body {
-    margin: 0;
-    background: #f5f6fa;
+    margin-top: 30px;
 }
 /* ===== PAGE ===== */
-.signup-page {
+.login-page {
     min-height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #f5f6fa;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ===== TITLE ===== */
-.signup-name h1 {
+.login-name h1 {
     display: flex;
     margin-bottom: 24px;
     margin-right: 10px;
@@ -24,9 +22,8 @@ body {
 }
 
 /* ===== FORM ===== */
-.signup-form {
+.login-form {
     width: 360px;
-    background: #f5f6fa;
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -75,7 +72,7 @@ body {
 
 
 /* ===== OPTIONS ===== */
-.signup-options {
+.login-options {
     width: 75%;
     display: flex;
     justify-content: space-between;
@@ -100,13 +97,13 @@ body {
 }
 
 /* ===== BUTTONS ===== */
-.signup-bnt {
+.login-bnt {
     width: 360px;
     margin-top: 16px;
     text-align: center;
 }
 
-.signup-btn-main {
+.login-btn-main {
     width: 80%;
     padding: 12px;
     border-radius: 30px;
@@ -117,18 +114,18 @@ body {
     cursor: pointer;
 }
 
-.signup-btn-main:hover {
+.login-btn-main:hover {
     background: #0202b1;
 }
 
-.signup-bnt h3 {
+.login-bnt h3 {
     margin: 16px 0;
     font-size: 14px;
     color: #999;
     font-weight: normal;
 }
 
-/* ===== SOCIAL signup ===== */
+/* ===== SOCIAL LOGIN ===== */
 .social-btn {
     display: flex;
     align-items: center;
@@ -140,13 +137,12 @@ body {
     background: #ffffff;
     margin: auto auto 16px;
     cursor: pointer;
+    gap: 7px;
 }
 
-.social-btn img.social-icon {
-    width: 20px;
-    height: 20px;
+.social-icon {
+    font-size: 18px;
 }
-
 .social-btn.google {
     border-color: #db4437;
     color: #db4437;
@@ -160,10 +156,14 @@ body {
     border-color: #1877f2;
     color: #1877f2;
     border: 1px solid #1877f2;
+    box-shadow:
+            inset 1px 1px 3px rgba(45, 141, 170, 0.12),
+            inset -1px -1px 3px rgba(18, 64, 214, 0.8);
 }
 
+
 /* ===== REGISTER ===== */
-.signup-register {
+.login-register {
     margin-top: 20px;
     font-size: 14px;
 }

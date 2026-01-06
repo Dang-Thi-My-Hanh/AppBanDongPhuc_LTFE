@@ -864,4 +864,3 @@ const uniforms = [
 ];
 
 export default uniforms;
-

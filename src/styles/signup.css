@@ -1,20 +1,18 @@
 body {
-    margin: 0;
-    background: #f5f6fa;
+    margin-top: 30px;
 }
 /* ===== PAGE ===== */
-.login-page {
+.signup-page {
     min-height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #f5f6fa;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ===== TITLE ===== */
-.login-name h1 {
+.signup-name h1 {
     display: flex;
     margin-bottom: 24px;
     margin-right: 10px;
@@ -24,9 +22,8 @@ body {
 }
 
 /* ===== FORM ===== */
-.login-form {
+.signup-form {
     width: 360px;
-    background: #f5f6fa;
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -75,7 +72,7 @@ body {
 
 
 /* ===== OPTIONS ===== */
-.login-options {
+.signup-options {
     width: 75%;
     display: flex;
     justify-content: space-between;
@@ -100,13 +97,13 @@ body {
 }
 
 /* ===== BUTTONS ===== */
-.login-bnt {
+.signup-bnt {
     width: 360px;
     margin-top: 16px;
     text-align: center;
 }
 
-.login-btn-main {
+.signup-btn-main {
     width: 80%;
     padding: 12px;
     border-radius: 30px;
@@ -117,18 +114,18 @@ body {
     cursor: pointer;
 }
 
-.login-btn-main:hover {
+.signup-btn-main:hover {
     background: #0202b1;
 }
 
-.login-bnt h3 {
+.signup-bnt h3 {
     margin: 16px 0;
     font-size: 14px;
     color: #999;
     font-weight: normal;
 }
 
-/* ===== SOCIAL LOGIN ===== */
+/* ===== SOCIAL signup ===== */
 .social-btn {
     display: flex;
     align-items: center;
@@ -160,10 +157,13 @@ body {
     border-color: #1877f2;
     color: #1877f2;
     border: 1px solid #1877f2;
+    box-shadow:
+            inset 1px 1px 3px rgba(45, 141, 170, 0.12),
+            inset -1px -1px 3px rgba(18, 64, 214, 0.8);
 }
 
 /* ===== REGISTER ===== */
-.login-register {
+.signup-register {
     margin-top: 20px;
     font-size: 14px;
 }

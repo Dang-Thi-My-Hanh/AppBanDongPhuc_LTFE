@@ -1,0 +1,401 @@
+body {
+    margin: 0;
+}
+/* ===== RESET NHẸ ===== */
+.account-page {
+    max-width: 420px;
+    margin: 5px auto;
+    font-family: Arial, sans-serif;
+}
+/* ===== PROFILE ===== */
+.account-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 10px auto;
+}
+.avatar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.account-profile .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    border: 1px solid #ddd;
+}
+.change-avatar-btn {
+    margin-top: 10px;           /* cách avatar */
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 500;
+
+    background-color: #fbe5ca;  /* cam chủ đạo */
+    color: #333;
+    border: 1px solid #fa912d;
+    border-radius: 555px;       /* bo tròn đẹp */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.change-avatar-btn:hover {
+    background-color: #e86d00;  /* cam đậm hơn */
+    transform: translateY(-1px);
+}
+
+.change-avatar-btn:active {
+    transform: translateY(0);
+}
+
+.account-profile .info h3 {
+    margin: 0 auto;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.account-profile .info p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #777;
+}
+.logout-btn {
+    margin-top: 8px;
+    background: none;
+    border: none;
+    color: #d32f2f;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    text-decoration: underline;
+}
+
+
+/* ===== TABS ===== */
+.account-tabs {
+    display: flex;
+    overflow: hidden;
+}
+
+.account-tabs .tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 14px;
+    cursor: pointer;
+    color: #777;
+    box-sizing: border-box;
+}
+
+.account-tabs .tab.active {
+    color: #fff;
+    font-weight: 600;
+
+}
+
+/* ===== SECTION CHUNG ===== */
+.account-section {
+    padding: 16px;
+    border-radius: 12px;
+    border-top: none;
+    margin-top: 0;
+}
+.address-text {
+    font-weight: 600;
+}
+/* header của mỗi section */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h4 {
+    font-size: 12px;
+}
+.section-header.info {
+    margin-top: 20px; /* tăng/giảm tuỳ bạn: 16px – 24px */
+}
+.section-header button {
+    border: none;
+    color: #2f80ed;
+    font-size: 12px;
+    cursor: pointer;
+}
+.account-page .account-section .contact-input {
+    width: 70%;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background: #CEF1F7;
+    border: none;
+    border-bottom: 2px solid #7ee3ed;
+    border-right: 2px solid #7ee3ed;
+    box-shadow: 2px 2px 5px rgba(126, 227, 237, 0.5);
+}
+.account-section p {
+    font-size: 10px;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.map-placeholder {
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #888;
+    margin: 0 auto;
+    border: 2px solid #f2c94c;
+}
+
+
+.address-input {
+    width: 100%;
+    min-height: 70px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    resize: none;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.edit-actions .save-btn {
+    background-color: #2f80ed;
+    color: #fff;              /* chữ trắng */
+    border: none;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.edit-actions .save-btn:hover {
+    background-color: #1c6ed5;
+}
+
+.edit-actions .cancel-btn {
+    background-color: #eee;
+    color: #333;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+
+/* ===== SHIPPING ADDRESS ===== */
+.purchase-history {
+    margin-top: 0px;
+}
+
+.order-tabs {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 16px;
+    background: #bcecf1;
+}
+.order-card {
+    margin: 15px 15px;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgb(98, 98, 221);
+}
+
+.order-header {
+    display: flex;
+    gap: 16px;
+}
+
+.order-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.order-info{
+    padding: 16px 0;
+}
+.order-info h5{
+    color: #111;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.order-date{
+    font-size: 8px;
+    color: #555;
+    text-align: right;
+    margin-right: 15px;
+}
+
+.order-price {
+    color: #ff7a00;
+    font-weight: 600;
+    text-align: center;
+}
+
+.order-details {
+    display: flex;
+    gap: 16px; /* khoảng cách giữa các cột */
+    flex-wrap: wrap; /* xuống hàng nếu nhỏ màn hình */
+}
+
+.order-detail-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: flex-start; /* căn trái, hoặc center nếu muốn */
+    margin-bottom: -8px;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #444;
+    font-weight: 550;
+    margin-bottom: 4px;
+}
+
+.detail-value {
+    display: flex;           /* biến container thành flex */
+    flex-direction: column;  /* xếp các phần tử theo cột dọc */
+    justify-content: center; /* căn giữa theo chiều dọc */
+    align-items: center;
+    font-size: 10px;
+    font-weight: 550;
+    color: #555;
+    gap: 2px;
+}
+.detail-value logo{
+    font-size: 12px;
+    font-weight: 550;
+    color: #555;
+}
+.order-detail-price{
+    display: flex;                 /* đặt hàng ngang */
+    justify-content: space-between; /* đẩy 2 phần tử 2 bên */
+    align-items: center;           /* căn giữa theo chiều dọc */
+    font-size: 12px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.order-detail-price .left{
+    color: #555;
+}
+.order-detail-price .right {
+    font-weight: bold;
+    color: #000;
+}
+.order-footer {
+    border-top: 2px solid #000;
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+    gap: 8px;
+}
+
+.order-actions {
+    display: flex;
+    gap: 8px;
+}
+.order-actions button {
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+.btn-outline {
+    border: 1px solid #ff7a00;
+    background: transparent;
+    color: #ff7a00;
+}
+
+.btn-primary {
+    background: #ff7a00;
+    color: #fff;
+    border: none;
+}
+
+/* ===== CONTACT INFO ===== */
+.account-section input {
+    width: 70%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #1f62bd;
+    font-size: 14px;
+}
+
+/* ===== PAYMENT METHODS ===== */
+.account-section label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.account-section label:hover {
+    background-color: #f5f5f5;
+}
+
+.account-section input[type="radio"] {
+    width: auto;
+    flex: 0 0 auto;
+    margin: 0;
+    cursor: pointer;
+}
+
+.payment-text {
+    flex: 1;
+    margin: 0 20px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+
+/* ===== SUPPORT ===== */
+.account-support {
+    background: #fff;
+    padding: 10px 15px;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.account-support p {
+    font-size: 13px;
+    color: #555;
+    margin: 7px 9px;
+}
+
+.account-support button {
+    margin-top: 8px;
+    width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #2f80ed;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 70px;
+
+}
