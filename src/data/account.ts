@@ -3,7 +3,7 @@ import map from "../assets/images/ImageHome/avarta/map.png";
 
 export const accountData = {
     user: {
-        name: "Dang Thi My Hanh",
+        name: "hanh",
         email: "hanh12345@gmail.com",
         avatar: avatar1,
         pass: "123456",

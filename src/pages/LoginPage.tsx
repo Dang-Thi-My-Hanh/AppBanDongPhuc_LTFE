@@ -19,7 +19,6 @@ function LoginPage() {
 
         const accounts = JSON.parse(localStorage.getItem("accounts") || "[]");
 
-        // 1️⃣ ƯU TIÊN account user đăng ký (localStorage)
         const foundLocalUser = accounts.find(
             (acc: any) =>
                 (acc.username?.toLowerCase() === input ||
@@ -36,9 +35,8 @@ function LoginPage() {
             return;
         }
 
-        // 2️⃣ FALLBACK: account mẫu (accountData.ts)
-        if (
-            input === accountData.user.email.toLowerCase() &&
+        if ((input === accountData.user.name.toLowerCase() ||
+            input === accountData.user.email.toLowerCase()) &&
             cleanPassword === accountData.user.pass
         ) {
             localStorage.setItem(
@@ -89,8 +87,16 @@ function LoginPage() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                <div className = "login-options">
+                    <label className="remember-password">
+                        <input type="checkbox" />
+                        Remember password
+                    </label>
+                    <a href="/forgot-password" className="forgot-password">
+                        Forgot password?
+                    </a>
+                </div>
             </div>
-
             <div className="login-bnt">
                 <button className="login-btn-main" onClick={handleLogin}>
                     Log In

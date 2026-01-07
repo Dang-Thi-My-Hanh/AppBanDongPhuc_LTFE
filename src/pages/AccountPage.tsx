@@ -2,13 +2,34 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/account.css";
 import { accountData } from "../data/account";
+import {User} from "../types/Account";
+import defaultMap from "../assets/images/ImageHome/avarta/map2.png";
+import {orderHistory} from "../data/orderHistory";
+export const normalizeUser = (raw: any): User => ({
+    username: raw.username ?? raw.user?.name ?? "",
+    email: raw.email ?? raw.user?.email ?? "",
+    avatar: raw.avatar ?? raw.user?.avatar ?? "/images/avt.png",
 
+    address: {
+        text: raw.address?.text ?? "",
+        map:
+            raw.address?.map &&
+            raw.address.map.trim() !== ""
+                ? raw.address.map
+                : defaultMap,
+    },
 
+    contact: {
+        phone: raw.contact?.phone ?? "",
+    },
+
+    payment: raw.payment ?? "bank",
+    isLogin: raw.isLogin ?? true,
+});
 function Account() {
     const navigate = useNavigate();
 
     const [user, setUser] = useState<any>(null);
-    const [activeTab, setActiveTab] = useState("info");
     const [paymentMethod, setPaymentMethod] = useState("bank");
 
     const [isEditingContact, setIsEditingContact] = useState(false);
@@ -20,57 +41,42 @@ function Account() {
     const [addressForm, setAddressForm] = useState({
         text: "",
     });
-
-
+    const DEFAULT_MAP = "/images/ImageHome/avarta/map2.png"
     const DEFAULT_AVATAR = "/images/avtAccount/avt.png";
+    const [activeTab, setActiveTab] = useState("info");
+    const deliveredOrders = orderHistory.filter((orderHistory: { status: string; }) => orderHistory.status === "Delivered");
 
     /* ================= INIT USER ================= */
     useEffect(() => {
         const storedUser = JSON.parse(
             localStorage.getItem("currentUser") || "null"
         );
+
         if (!storedUser || !storedUser.isLogin) {
             navigate("/login");
             return;
         }
 
-        if (!storedUser || !storedUser.isLogin) {
-            const mockUser = {
-                username: accountData.user.name,
-                email: accountData.user.email,
-                avatar: accountData.user.avatar,
-                address: accountData.address,
-                contact: accountData.contact,
-                payment: accountData.payment,
-                isMock: true,
-            };
+        // 🔥 nếu là mock account → merge thêm account.ts
+        const rawUser = storedUser.isMock
+            ? {
+                ...accountData,
+                ...storedUser,
+                address: storedUser.address ?? accountData.address,
+                contact: storedUser.contact ?? accountData.contact,
+            }
+            : storedUser;
 
-            setUser(mockUser);
-            setAddressForm({
-                text: mockUser.address?.text || "",
-            });
+        const user = normalizeUser(rawUser);
 
-            setContactForm({
-                phone: mockUser.contact.phone,
-                email: mockUser.email,
-            });
-            setPaymentMethod(mockUser.payment);
-            return;
-        }
-
-        setUser(storedUser);
-        setAddressForm({
-            text: storedUser.address?.text || "",
-        });
-
-
+        setUser(user);
+        setAddressForm({ text: user.address.text });
         setContactForm({
-            phone: storedUser.contact?.phone || "",
-            email: storedUser.email || "",
+            phone: user.contact.phone,
+            email: user.email,
         });
-        setPaymentMethod(storedUser.payment || "bank");
+        setPaymentMethod(user.payment);
     }, []);
-
     /* ================= AVATAR ================= */
     const handleChangeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -170,7 +176,7 @@ function Account() {
                 </div>
 
 
-                <div className="info">
+                <div className="info-account">
                     <h3>{user.username}</h3>
                     <p>{user.email}</p>
                     <button className="logout-btn" onClick={handleLogout}>Log out</button>
@@ -204,20 +210,17 @@ function Account() {
 
                     {!isEditingAddress ? (
                         <p className="address-text">
-                            {user.address?.text || "No address provided"}
+                            {user.address.text || "No address provided"}
                         </p>
                     ) : (
                         <textarea className="address-input" value={addressForm.text}
-                            onChange={(e) => setAddressForm({ text: e.target.value })}
-                            placeholder="Enter your shipping address"
+                                  onChange={(e) => setAddressForm({ text: e.target.value })}
+                                  placeholder="Enter your shipping address"
                         />
                     )}
-                    <img
-                        className="map-placeholder"
-                        src={accountData.address.map}
-                        alt="map"
-                    />
-                    <div className="section-header info">
+                    <img className="map-placeholder" src={user.address.map} />
+
+                    <div className="section-header">
                         <h4>Contact Information</h4>
                         {!isEditingContact ? (
                             <button onClick={() => setIsEditingContact(true)}>Edit</button>
@@ -229,19 +232,82 @@ function Account() {
                         )}
                     </div>
                     <input className="contact-input" value={contactForm.phone} readOnly={!isEditingContact}
-                        onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}/>
+                           onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}/>
                     <input className="contact-input" value={contactForm.email} readOnly={!isEditingContact}
-                        onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}/>
+                           onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}/>
                 </section>
             )}
 
-            {/* PURCHASE HISTORY */}
+            {/* 4. PURCHASE HISTORY */}
             {activeTab === "history" && (
                 <section className="purchase-history">
-                    <p>No orders yet</p>
+                    {deliveredOrders.length === 0 ? (
+                        <p>Không có đơn hàng đã giao</p>
+                    ) : (
+                        deliveredOrders.map((order) => (
+                            <div className="order-card" key={order.id}>
+                                <div className="order-header">
+                                    <img
+                                        src={order.product.images[0]}
+                                        alt={order.product.name}
+                                        className="order-image"
+                                    />
+                                    <div className="order-info">
+
+                                        <h5>{order.product.name}</h5>
+                                        <p className="order-price">{order.product.price.toLocaleString()} VND</p>
+                                        <p className="order-date">Order date: {order.orderDate || "14 Sep 2025"}</p>
+                                    </div>
+                                </div>
+
+                                <div className="order-details">
+                                    <div className="order-detail-item">
+                                        <span className="detail-label">Size</span>
+                                        <div className="detail-value">
+                                            {order.items.map((item, index) => (
+                                                <p key={index}>{item.size}</p>))}
+                                        </div>
+
+                                    </div>
+                                    <div className="order-detail-item">
+                                        <span className="detail-label">Quantity</span>
+                                        <div className="detail-value">
+                                            {order.items.map((item, index) => (
+                                                <p key={index}>{item.quantity}</p>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="order-detail-item">
+                                        <span className="detail-label">Gender</span>
+                                        <div className="detail-value">
+                                            {order.items.map((item, index) => (
+                                                <p key={index}>{item.gender}</p>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="order-detail-item">
+                                        <span className="detail-label">Logo type</span>
+                                        <div className="detail-value logo">
+                                            {order.logo ? "Custom logo" : "No logo"}
+                                        </div>
+                                    </div>
+                                    <div className={"order-detail-price"}>
+                                        <span className="left">Total quantity: {order.quantity || 1}</span>
+                                        <span className="right">Total: <strong>{((order.quantity || 1) * order.product.price).toLocaleString()} VND</strong></span>
+                                    </div>
+                                </div>
+
+                                <div className="order-footer">
+                                    <div className="order-actions">
+                                        <button className="btn-outline">Trả hàng / hoàn tiền</button>
+                                        <button className="btn-primary">Đánh giá</button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    )}
                 </section>
             )}
-
             {/* PAYMENT METHODS */}
             <section className="account-section">
                 <h4>Payment Methods</h4>
