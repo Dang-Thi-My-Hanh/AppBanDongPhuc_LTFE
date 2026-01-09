@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import './styles/global.css';
+import './styles/welcomeLayout .css';
 
 /* Pages */
 import Welcome from './pages/Index';
@@ -16,6 +16,7 @@ import SignupPage from "./pages/SignupPage";
 import CategoryProducts from "./pages/Products/CategoryProducts";
 import ProductDetail from './pages/ProductDetailPage';
 import BackLayout from "./layouts/BackLayout";
+import LoginLayout from "./layouts/LoginLayout";
 
 function App() {
   return (
@@ -29,13 +30,17 @@ function App() {
           <Route path="/home" element={<MainLayout><Home /></MainLayout>}/>
           <Route path="/products" element={<MainLayout><Products /></MainLayout>}/>
           <Route path="/products/:category" element={<MainLayout><CategoryProducts /></MainLayout>} />
-            <Route path="/product/:id" element={<BackLayout><ProductDetail /></BackLayout>} />
-            <Route path="/orders" element={<MainLayout><Orders /></MainLayout>}/>
+          <Route path="/product/:id" element={<BackLayout><ProductDetail /></BackLayout>} />
+          <Route path="/orders" element={<MainLayout><Orders /></MainLayout>}/>
           <Route path="/account" element={<BackLayout> <Account /> </BackLayout>}/>
           <Route path="/cart" element={<Cart />}/>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
+            <Route element={<LoginLayout/>}>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+            </Route>
+
         </Routes>
+
       </BrowserRouter>
   );
 }
