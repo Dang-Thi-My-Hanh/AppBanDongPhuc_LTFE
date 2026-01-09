@@ -115,13 +115,14 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .section-header h4 {
     font-size: 12px;
 }
 .section-header.info {
-    margin-top: 20px; /* tăng/giảm tuỳ bạn: 16px – 24px */
+    margin-top: 20px;
 }
 .section-header button {
     border: none;
@@ -203,7 +204,7 @@ body {
 
 /* ===== SHIPPING ADDRESS ===== */
 .purchase-history {
-    margin-top: 0px;
+    margin: 15px;
 }
 
 .order-tabs {
