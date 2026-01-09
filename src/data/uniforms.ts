@@ -137,11 +137,11 @@ const uniforms = [
             "Student uniform made of Kate fabric, colorfast, easy to wash and iron.",
         category: "School",
         images: [
-            "images/DongPhucHocSinhTHCS-PT/xanhnhat.jpg",
-            "images/DongPhucHocSinhTHCS-PT/trangden.jpg",
-            "images/DongPhucHocSinhTHCS-PT/trangvang.jpg",
-            "images/DongPhucHocSinhTHCS-PT/xanhden.jpg",
-            "images/DongPhucHocSinhTHCS-PT/xanhnavy.jpg",
+            "/images/DongPhucHocSinhTHCS-PT/xanhnhat.jpg",
+            "/images/DongPhucHocSinhTHCS-PT/trangden.jpg",
+            "/images/DongPhucHocSinhTHCS-PT/trangvang.jpg",
+            "/images/DongPhucHocSinhTHCS-PT/xanhden.jpg",
+            "/images/DongPhucHocSinhTHCS-PT/xanhnavy.jpg",
         ],
         minimumOrderQuantity: 50,
         sizes: [
@@ -166,8 +166,7 @@ const uniforms = [
         images: [
             "/images/DongPhucHocSinhMamNon/cam.jpg",
             "/images/DongPhucHocSinhMamNon/doxanh.jpg",
-            "/images/DongPhucHocSinhMamNon/trangxanh.jpg",
-            "/images/DongPhucHocSinhMamNon/xanhmint.jpg",
+            "/images/DongPhucHocSinhMamNon/vang.jpg",
             "/images/DongPhucHocSinhMamNon/xanhtrang.jpg",
         ],
         minimumOrderQuantity: 50,
@@ -194,7 +193,6 @@ const uniforms = [
             "/images/DongPhucHocSinhTieuHoc/dotrang.jpg",
             "/images/DongPhucHocSinhTieuHoc/trangden.jpg",
             "/images/DongPhucHocSinhTieuHoc/trangxanhnavy.jpg",
-            "/images/DongPhucHocSinhTieuHoc/xanhmint.jpg",
             "/images/DongPhucHocSinhTieuHoc/xanhduongden.jpg",
         ],
         minimumOrderQuantity: 50,
@@ -526,8 +524,8 @@ const uniforms = [
         category: "Event",
         images: [
             "/images/AoDaiDuXuan/xanhnhat3.webp",
-            "/images/AoSoMiSuKien/xanhnhat2.webp",
-            "/images/AoSoMiSuKien/xanhnhat1.webp",
+            "/images/AoDaiDuXuan/xanhnhat2.webp",
+            "/images/AoDaiDuXuan/xanhnhat1.webp",
         ],
         minimumOrderQuantity: 20,
         sizes: [
@@ -679,7 +677,6 @@ const uniforms = [
             "/images/ChanVayTheThaoNu/vay-den2.avif",
             "/images/ChanVayTheThaoNu/vay-den3.avif",
             "/images/ChanVayTheThaoNu/vay-trang.avif",
-            "/images/ChanVayTheThaoNu/vay-trang1.avif",
             "/images/ChanVayTheThaoNu/vay-trang3.avif",
         ],
         minimumOrderQuantity: 20,

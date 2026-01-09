@@ -2,22 +2,19 @@
 
 .product-detail {
     display: flex;
-    gap: 40px;
     padding: 20px;
     max-width: 1200px;
-    margin: 0 auto;
     font-family: Arial, sans-serif;
-    color: #333;
+    color: #111;
 }
 
 /* Back button */
 .product-detail > button {
-    padding: 6px 12px;
+    padding:0 12px;
     background-color: #f5f5f5;
     border: 1px solid #ddd;
     cursor: pointer;
     border-radius: 6px;
-    margin-bottom: 20px;
     transition: background-color 0.2s;
 }
 
@@ -30,16 +27,46 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center; /* dọc */
+    align-items: center;
+}
+.image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 }
 
 .main-image {
-    width: 100%;
+    margin-top: 10px;
+    width: 240px;
+    height: 300px;
     max-width: 400px;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
     object-fit: cover;
-    border: 1px solid #ddd;
+    object-position: top;
+}
+
+/* NÚT CHUNG */
+.nav-btn {
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    border: 2px solid #bfbfbf;
+    border-radius: 5px;
+    background: #eee;
+    padding: 4px 5px;
+    font-size: 7px;
+    cursor: pointer;
+}
+
+/* NÚT TRÁI */
+.nav-btn.left {
+    left: 40px;
+}
+
+/* NÚT PHẢI */
+.nav-btn.right {
+    right: 40px;
 }
 
 .thumbnails {
@@ -48,13 +75,12 @@
 }
 
 .thumbnails .thumb {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    border: 2px solid transparent;
-    border-radius: 4px;
     cursor: pointer;
     transition: border 0.2s;
+    object-position: top;
 }
 
 .thumbnails .thumb.active {
@@ -66,21 +92,124 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-bottom: 60px;
 }
-
 .info h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 18px;
 }
-
 .info p {
-    margin-bottom: 8px;
     font-size: 16px;
 }
-
+.info-price{
+    color: #f86425;
+    font-weight: 600;
+}
 .info label {
     font-weight: 600;
+}
+.rating-row {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 8px 0 10px;
+}
+.rating-sao{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.rating-number {
+    font-size: 10px;
+}
+
+.stars {
+    display: flex;
+    gap: 2px;
+}
+
+.star {
+    font-size: 10px;
+}
+
+.star.full {
+    color: #ffc107; /* vàng */
+}
+
+.star.empty {
+    color: #ddd; /* trắng/xám */
+}
+.comment-count {
+    font-size: 10px;
+    color: #555;
+}
+.gender-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0;
+}
+.info-gender {
+    font-size: 12px;
+}
+
+.gender-options {
+    display: flex;
+    gap: 8px;
+}
+.gender-btn {
+    padding: 6px 14px;
+    border-radius: 16px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.gender-btn:hover {
+    border-color: #333;
+}
+
+.gender-btn.active {
+    background: #ff7a00;
+    color: #fff;
+    border-color: #fff;
+}
+/*Shipper*/
+.shipping-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0 10px;
+    font-size: 13px;
+    color: #444;
+}
+.shipping-icon {
+    color: #00bfa6;
+    display: flex;
+    align-items: center;
+}
+.shipping-label {
+    font-weight: 600;
+}
+
+.shipping-text {
+    color: #666;
+    font-weight: 500;
+}
+.shipping-change-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 2px 6px;
+    color: #666;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.shipping-change-btn:hover {
+    color: #ff7a00;
+    transform: translateX(2px);
 }
 
 /* Size selector */
@@ -89,21 +218,230 @@ select {
     border-radius: 6px;
     border: 1px solid #ccc;
     margin-left: 10px;
-    font-size: 16px;
+    font-size: 10px;
+}
+.size-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+.size-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.info-size {
+    font-size: 12px;
+}
+
+.size-stock {
+    font-size: 12px;
+    font-weight: 500;
+    color: #555;
+}
+/*LOGO*/
+.logo-row{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    font-size: 10px;
+    position: relative;
+}
+.logo-text {
+    font-size: 10px;
+    font-weight: 400;
+    color: #444;
+    white-space: nowrap;
+}
+.logo-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.arrow {
+    font-size: 9px;
+    transition: transform 0.2s ease;
+}
+
+.arrow.open {
+    transform: rotate(180deg);
+}
+
+/* Dropdown dọc */
+.logo-dropdown {
+    position: absolute;
+    top: 90%;
+    margin-top: 4px;
+    width: 60px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.logo-dropdown button {
+    padding: 4px 6px;
+    font-size: 10px;
+    text-align: left;
+    border: none;
+    background: #fff;
+    cursor: pointer;
+}
+.logo-dropdown button:hover {
+    background: #f5f5f5;
+}
+.logo-dropdown button.active {
+    border: 1px solid #ff7a00;
+    color: #333;
+}
+
+/* Panel full width */
+.logo-panel-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 85%;
+    background: #fff;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    z-index: 1000;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+}
+
+.panel-content {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.panel-content .inline {
+    display: flex;
+    gap: 8px;
+}
+
+.panel-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.panel-actions .save {
+    flex: 1;
+    background: #000;
+    color: #fff;
+}
+
+.panel-actions .cancel {
+    flex: 1;
 }
 
 /* Quantity input */
-input[type="number"] {
-    width: 80px;
-    padding: 6px;
-    margin-left: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+.quantity-wrapper {
+    margin-bottom: 20px ;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Label */
+.quantity-wrapper label {
+    font-size: 12px;
+}
+
+/* Khung + - input */
+.quantity-control {
+    display: inline-flex;
+    align-items: center;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    width: fit-content;
+    background: #fff;
+}
+
+/* Nút + - */
+.qty-btn {
+    border: none;
+    background: #f3f3f3;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.qty-btn:hover:not(:disabled) {
+    background: #e6e6e6;
+}
+
+.qty-btn:disabled {
+    background: #fafafa;
+    color: #bbb;
+    cursor: not-allowed;
+}
+
+/* Input số */
+.quantity-control input {
+    width: 35px;
+    height: 25px;
+    border: none;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    background: #fff;
+}
+
+/* Remove arrows mặc định */
+.quantity-control input::-webkit-outer-spin-button,
+.quantity-control input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity-control input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Focus */
+.quantity-control input:focus {
+    outline: none;
+    background: #fafafa;
+}
+
+/* Minimum text */
+.quantity-wrapper small {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Out of stock */
+.quantity-wrapper .out-of-stock {
+    color: #e53935;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 /* Buttons */
 .buttons {
-    margin-top: 20px;
     display: flex;
     gap: 10px;
 }
