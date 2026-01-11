@@ -258,6 +258,7 @@
 /* FOOTER */
 .checkout-footer {
     position: fixed;
+    bottom: 60px;
     left: 0;
     right: 0;
     height: 50px;
@@ -274,6 +275,7 @@
     color: white;
     padding: 8px 16px;
     border-radius: 6px;
+    margin: 5px;
     font-weight: 600;
 }
 /*form thêm địa chỉ */

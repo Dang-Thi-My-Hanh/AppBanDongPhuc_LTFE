@@ -11,6 +11,7 @@ import iconCash from "../assets/icon/checkout/cash.svg"
 import iconDeposit from "../assets/icon/checkout/deposit.svg"
 import iconOnlPayment from "../assets/icon/checkout/onlPayment.svg"
 import BankAccountSelector, { BankAccount } from "../components/payment/BankAccountSelector";
+import PaymentQRModal from "../components/payment/PaymentQRModal";
 
 const Checkout = () => {
     const location = useLocation();
@@ -30,7 +31,7 @@ const Checkout = () => {
     const [showShippingModal, setShowShippingModal] = useState(false);
 
     const [shippingOption, setShippingOption] = useState<"standard" | "fast">("standard");
-
+    const [showQRModal, setShowQRModal] = useState(false);
 
     // Tính lại tổng tiền
     const Subtotal = checkoutItems.reduce((total, item) => {
@@ -51,6 +52,7 @@ const Checkout = () => {
         const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
         return arrivalDate.toLocaleDateString("en-US", options);
     };
+
     const renderLogoDetails = (logoData: string | LogoCustomization | undefined) => {
         if (!logoData || logoData === "No Logo") return null;
 
@@ -110,7 +112,15 @@ const Checkout = () => {
         if (typeof logoType === 'string') return logoType;
         return logoType.logoType;
     };
-
+    // Xử lý Place Order
+    const handlePlaceOrder = () => {
+        if (paymentMethod === "bank") {
+            setShowQRModal(true);
+        } else {
+            alert(`Order placed successfully via ${paymentMethod}!`);
+            navigate("/orders");
+        }
+    };
     // Nếu không có sản phẩm nào
     if (checkoutItems.length === 0) {
         return (
@@ -325,12 +335,15 @@ const Checkout = () => {
                     <span>{totalPayment.toLocaleString()} VND</span>
                 </div>
             </div>
-
             {/* FOOTER */}
             <div className="checkout-footer">
-                <button className="placeOrderBtn">Place Order</button>
+                <button className="placeOrderBtn" onClick={handlePlaceOrder}>Place Order</button>
             </div>
-
+            <PaymentQRModal
+                isOpen={showQRModal}
+                onClose={() => setShowQRModal(false)}
+                totalAmount={totalPayment}
+            />
             {/*Form thêm địa chỉ*/}
             {showAddressModal && (
                 <div className="address-modal-overlay">
@@ -398,6 +411,7 @@ const Checkout = () => {
                     </div>
                 </div>
             )}
+
             <Navbar/>
         </div>
     );
