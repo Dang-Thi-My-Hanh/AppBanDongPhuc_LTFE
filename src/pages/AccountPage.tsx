@@ -6,6 +6,8 @@ import "../styles/Account.css";
 function Account() {
     const [paymentMethod, setPaymentMethod] = useState("bank");
     const navigate = useNavigate();
+    const mainAddress = accountData.addresses?.[0];
+    const user= accountData.user;
 
     const handleLogout = () => {
         localStorage.removeItem("user");
@@ -42,10 +44,17 @@ function Account() {
                     <h4>Shipping Address</h4>
                     <button>Edit</button>
                 </div>
-                <p className="address-text">{accountData.address.text}</p>
+                    {mainAddress ? (
+                        <>
+                            <p className="address-name"><b>{mainAddress.name}</b></p>
+                            <p className="address-text">{mainAddress.text}</p>
+                            <p className="address-phone">{mainAddress.phone}</p>
+                        </>
+                    ) : (
+                        <p className="address-text">No address yet</p>
+                    )}
                 <img
                     className="map-placeholder"
-                    src={accountData.address.map}
                     alt="map"
                 />
             </section>
@@ -56,8 +65,16 @@ function Account() {
                     <h4>Contact Information</h4>
                     <button>Edit</button>
                 </div>
-                <input value={accountData.contact.email} readOnly />
-                <input value={accountData.contact.phone} readOnly />
+                {mainAddress ? (
+                        <>
+                            <p className="address-email"><b>{user.email}</b></p>
+                            <p className="address-phone">{mainAddress.phone}</p>
+                        </>
+                ) : (
+                    <p className="address-text">No Information</p>
+                )}
+                {/* <input value={accountData.contact.email} readOnly />
+                <input value={accountData.contact.phone} readOnly />*/}
             </section>
 
             {/* 5. PAYMENT METHODS */}

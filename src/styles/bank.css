@@ -1,0 +1,67 @@
+.bank-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bank-modal select {
+    width: 100%;
+    max-width: 100%;
+    font-size: 13px;
+}
+.bank-modal option {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bank-modal {
+    width: 350px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    animation: popup 0.2s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.modal-header .close-btn {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.bank-modal input,
+.bank-modal select {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.add-bank-btn{
+    color: #ff9f43;
+    border: 1px solid white;
+}
+.save-btn {
+    width: 100%;
+    height: 42px;
+    border: none;
+    border-radius: 8px;
+    background: #ff9f43;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
