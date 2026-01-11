@@ -5,25 +5,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
+    padding: 20px;
 }
-.bank-modal select {
-    width: 100%;
-    max-width: 100%;
-    font-size: 13px;
-}
-.bank-modal option {
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .bank-modal {
-    width: 350px;
+    width: 90%;
+    max-width: 350px;
+    box-sizing: border-box;
     background: #fff;
     border-radius: 6px;
     padding: 20px;
     animation: popup 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .modal-header {
@@ -36,6 +29,7 @@
 .modal-header .close-btn {
     cursor: pointer;
     font-size: 18px;
+    padding: 5px
 }
 
 .bank-modal input,
@@ -46,13 +40,20 @@
     margin-bottom: 12px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    font-size: 14px;
+    font-size: 12px;
     box-sizing: border-box;
 }
 
-.add-bank-btn{
+.add-bank-btn {
     color: #ff9f43;
-    border: 1px solid white;
+    background: white;
+    border: 1px solid #ff9f43;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 10px;
+    width: 100%;
 }
 .save-btn {
     width: 100%;
