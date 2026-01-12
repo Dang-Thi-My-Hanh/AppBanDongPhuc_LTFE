@@ -9,11 +9,17 @@ interface ProductCardProps {
 }
 const ProductCard: React.FC<ProductCardProps> = ({ id, name, price, image }) => {
     return (
+        <div className="product-card">
         <Link to={`/product/${id}`} className="product-card">
-            <img src={image} alt={name} />
-            <h3>{name}</h3>
-            <p>{price.toLocaleString()} VND</p>
+            <img src={image} alt={name}/>
+            <p className="product-name">{name}</p>
+            <span className="product-price">{price.toLocaleString()} VND</span>
         </Link>
+            {/*<div className="add-cart">
+                <CartIcon width="18px" height="18px"/>
+            </div>*/}
+        </div>
+
     );
 };
 
