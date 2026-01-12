@@ -8,6 +8,7 @@ function LoginPage() {
     const [userNameOrEmail, setUserNameOrEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+
     const handleLogin = () => {
         if (!userNameOrEmail || !password) {
             alert("Please enter username/email and password");
@@ -17,9 +18,9 @@ function LoginPage() {
         const input = userNameOrEmail.trim().toLowerCase();
         const cleanPassword = password.trim();
 
+        /* 1️⃣ Ưu tiên login user đăng ký (localStorage) */
         const accounts = JSON.parse(localStorage.getItem("accounts") || "[]");
 
-        // 1️⃣ ƯU TIÊN account user đăng ký (localStorage)
         const foundLocalUser = accounts.find(
             (acc: any) =>
                 (acc.username?.toLowerCase() === input ||
@@ -36,17 +37,19 @@ function LoginPage() {
             return;
         }
 
-        // 2️⃣ FALLBACK: account mẫu (accountData.ts)
-        if (
-            input === accountData.user.email.toLowerCase() &&
-            cleanPassword === accountData.user.pass
-        ) {
+        /* 2️⃣ Login user mock từ accountData.users */
+        const foundMockUser = accountData.users.find(
+            (user) =>
+                (user.name.toLowerCase() === input ||
+                    user.email.toLowerCase() === input) &&
+                user.pass === cleanPassword
+        );
+
+        if (foundMockUser) {
             localStorage.setItem(
                 "currentUser",
                 JSON.stringify({
-                    username: accountData.user.name,
-                    email: accountData.user.email,
-                    avatar: accountData.user.avatar,
+                    ...foundMockUser,
                     isLogin: true,
                     isMock: true,
                 })
@@ -57,7 +60,6 @@ function LoginPage() {
 
         alert("Username / Email or password is incorrect!");
     };
-
 
     return (
         <div className="login-page">
@@ -89,6 +91,16 @@ function LoginPage() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+
+                <div className="login-options">
+                    <label className="remember-password">
+                        <input type="checkbox" />
+                        Remember password
+                    </label>
+                    <a href="/forgot-password" className="forgot-password">
+                        Forgot password?
+                    </a>
+                </div>
             </div>
 
             <div className="login-bnt">
@@ -100,12 +112,12 @@ function LoginPage() {
 
                 <button className="social-btn google">
                     <FaGoogle className="social-icon" />
-                      Continue with Google
+                    Continue with Google
                 </button>
 
                 <button className="social-btn facebook">
                     <FaFacebookF className="social-icon" />
-                     Continue with Facebook
+                    Continue with Facebook
                 </button>
             </div>
 

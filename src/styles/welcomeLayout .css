@@ -1,11 +1,9 @@
-html, body, #root {
-    margin: 0;
-    padding: 0;
-    width: 100%;
+.page-bg {
     min-height: 100vh;
+    position: relative;
 }
 
-#root::before {
+.page-bg::before {
     content: "";
     position: fixed;
     inset: 0;
