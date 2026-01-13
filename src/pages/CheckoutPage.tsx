@@ -14,11 +14,19 @@ import iconDeposit from "../assets/icon/checkout/deposit.svg"
 import iconOnlPayment from "../assets/icon/checkout/onlPayment.svg"
 import BankAccountSelector, { BankAccount } from "../components/payment/BankAccountSelector";
 import PaymentQRModal from "../components/payment/PaymentQRModal";
-
+import {useDispatch} from "react-redux";
+interface CheckoutLocationState {
+    items: CartItem[];
+    totalPrice?: number;
+}
 const Checkout = () => {
-    const location = useLocation();
+    const location = useLocation() as {
+        state: CheckoutLocationState;
+    };
     const navigate = useNavigate();
-
+    const checkoutItems: CartItem[] = location.state?.items || [];
+    const checkoutState = location.state as CheckoutLocationState | null;
+    const totalPrice = checkoutState?.totalPrice ?? 0;
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     //const [paymentMethod, setPaymentMethod] = useState(accountData.payment || "bank");
     const [paymentMethod, setPaymentMethod] = useState<
@@ -28,7 +36,6 @@ const Checkout = () => {
     const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
 
     // Lấy dữ liệu được gửi từ trang Cart
-    const checkoutItems: CartItem[] = location.state?.items || [];
     const [showAddressModal, setShowAddressModal] = useState(false);
     //const [selectedAddress, setSelectedAddress] = useState(accountData.addresses[0]);
     const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);

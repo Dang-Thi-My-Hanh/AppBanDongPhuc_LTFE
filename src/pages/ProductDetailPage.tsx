@@ -1,14 +1,18 @@
-import { useParams, useNavigate } from "react-router-dom";
+import {useParams, useNavigate, useLocation} from "react-router-dom";
 import React, {useState, useEffect, useMemo} from "react";
 import uniforms from "../data/uniforms";
 import "../styles/productDetail.css";
 import {reviews} from "../data/reviews";
 import LogoCustomizationModal  from "../components/cart/LogoCustomizationModal";
-import { LogoCustomization } from "../types/CartType";
+import {CartItem, LogoCustomization} from "../types/CartType";
 import ProductGrid from "./Products/ProductGrid";
 import {Product} from "../types/ProductType";
 import { accountData } from "../data/account";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
+import chatIcon from "../assets/images/ImageHome/icon/iconChat.png";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../components/redux/Cart";
 
 const ProductDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -20,6 +24,8 @@ const ProductDetail: React.FC = () => {
         [id]
     );
 
+
+    const dispatch = useDispatch();
     /* ================== STATES ================== */
     const [mainImage, setMainImage] = useState("");
     const [selectedSize, setSelectedSize] = useState("");
@@ -143,6 +149,70 @@ const ProductDetail: React.FC = () => {
             setMainImage(product.images[currentImageIndex + 1]);
         }
     };
+    const currentUser = JSON.parse(
+        localStorage.getItem("currentUser") || "null"
+    );
+
+    const currentUserId = currentUser?.id;
+    if (!currentUserId) {
+        console.error("User not logged in");
+        return null;
+    }
+
+    const handleAddToCart = () => {
+        if (!product || currentStock === 0 || quantity === 0) return;
+        if (!currentUserId) return;
+
+        dispatch(addToCart({
+            userId: currentUserId,
+            item: {
+                id: Date.now(), // cartItemId
+                idAccount: currentUserId,
+                name: product.name,
+                image: mainImage,
+                price: product.price,
+                gender: selectedGender,
+                logoType: logoCustomization,
+                sizes: [
+                    {
+                        size: selectedSize,
+                        quantity,
+                    },
+                ],
+            },
+        }));
+    };
+    const handleBuyNow = () => {
+        if (!product || currentStock === 0 || quantity === 0) return;
+        if (!currentUserId) return;
+
+        const buyNowItem: CartItem = {
+            id: Date.now(),
+            idAccount: currentUserId,
+            name: product.name,
+            image: mainImage,
+            price: product.price,
+            gender: selectedGender,
+            logoType: logoCustomization,
+            sizes: [
+                {
+                    size: selectedSize,
+                    quantity,
+                },
+            ],
+        };
+
+        const totalPrice = product.price * quantity;
+
+        navigate("/checkout", {
+            state: {
+                items: [buyNowItem],
+                totalPrice,
+            },
+        });
+    };
+
+
     return (
         <div className="product-detail">
             {/* Images */}
@@ -168,13 +238,6 @@ const ProductDetail: React.FC = () => {
                             {averageRating.toFixed(1)}
                         </span>
                         <div className="stars">
-                            {Array.from({ length: 5 }).map((_, i) =>
-                                i < Math.floor(averageRating) ? (
-                                    <FaStar key={i} className="star full" />
-                                ) : (
-                                    <FaRegStar key={i} className="star empty" />
-                                )
-                            )}
                             {Array.from({ length: 5 }).map((_, i) =>
                                 i < Math.floor(averageRating) ? (
                                     <FaStar key={i} className="star full" />
@@ -274,9 +337,35 @@ const ProductDetail: React.FC = () => {
                 </div>
                 {/* Buttons */}
                 <div className="buttons">
-                    <button disabled={currentStock === 0}>Add to Cart</button>
-                    <button disabled={currentStock === 0}>Buy Now</button>
+                    {/* CHAT */}
+                    <button
+                        className="btn-chat"
+                        onClick={() => navigate("/chat")}
+                        aria-label="Chat"
+                    >
+                        <img src={chatIcon} alt="Chat" />
+                    </button>
+
+                    {/* ADD TO CART */}
+                    <button
+                        className="btn-cart"
+                        disabled={currentStock === 0 || quantity === 0}
+                        onClick={handleAddToCart}
+                        aria-label="Add to Cart"
+                    >
+                        <FiShoppingCart />
+                    </button>
+
+                    {/* BUY NOW */}
+                    <button
+                        className="btn-buy"
+                        disabled={currentStock === 0 || quantity === 0}
+                        onClick={handleBuyNow}
+                    >
+                        Buy Now
+                    </button>
                 </div>
+
             </div>
             {/* DESCRIPTION & COMMENT */}
             <div className="product-tabs">

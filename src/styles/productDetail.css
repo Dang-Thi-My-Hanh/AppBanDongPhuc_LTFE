@@ -443,28 +443,65 @@ select {
 /* Buttons */
 .buttons {
     display: flex;
-    gap: 10px;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-top: 5px;
+    align-items: center;
 }
 
-.buttons button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #ff7a00;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
+/* CHAT BUTTON (ICON) */
+.btn-chat {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ff7a00;
+    background: #fff5ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.btn-chat img {
+    width: 22px;
+    height: 22px;
+}
+
+/* ADD TO CART */
+.btn-cart {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ff7a00;
+    background: #ffdcb9;
+    color: #ed7500;
+    font-size: 14px;
     cursor: pointer;
     transition: background-color 0.2s;
+    flex-shrink: 0;
 }
-
-.buttons button:hover:enabled {
-    background-color: #e66c00;
+.btn-cart svg {
+    font-size: 20px;
+}
+.btn-cart:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+/* BUY NOW */
+.btn-buy {
+    width: 120px;
+    height: 40px;
+    border: none;
+    background: #ff7a00;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .buttons button:disabled {
-    background-color: #ccc;
+    opacity: 0.5;
     cursor: not-allowed;
 }
+
 
 /* Out of stock text */
 span {
