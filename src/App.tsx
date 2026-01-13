@@ -18,6 +18,7 @@ import ProductDetail from './pages/ProductDetailPage';
 import BackLayout from "./layouts/BackLayout";
 import LoginLayout from "./layouts/LoginLayout";
 import Checkout from "./pages/CheckoutPage";
+import OrderSuccess from "./pages/OrderSuccess";
 
 
 function App() {
@@ -60,12 +61,16 @@ function App() {
           <Route
               path="/orders"
               element={
-                <MainLayout>
                   <Orders />
-                </MainLayout>
               }
           />
-
+            OrderSuccess
+            <Route
+                path="/order-success"
+                element={
+                    <OrderSuccess />
+                }
+            />
           <Route
               path="/account"
               element={
