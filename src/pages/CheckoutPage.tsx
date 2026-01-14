@@ -15,10 +15,12 @@ import iconOnlPayment from "../assets/icon/checkout/onlPayment.svg"
 import BankAccountSelector, { BankAccount } from "../components/payment/BankAccountSelector";
 import PaymentQRModal from "../components/payment/PaymentQRModal";
 import {useDispatch} from "react-redux";
+import {Order, saveOrder } from '../utils/orderUtil';
 interface CheckoutLocationState {
     items: CartItem[];
     totalPrice?: number;
 }
+
 const Checkout = () => {
     const location = useLocation() as {
         state: CheckoutLocationState;
@@ -150,6 +152,26 @@ const Checkout = () => {
         if (typeof logoType === 'string') return logoType;
         return logoType.logoType;
     };
+    const createOrderData = (): Order => {
+        const orderId = `#ORD-${Date.now().toString().slice(-6)}`; // Tạo ID ngẫu nhiên dựa trên thời gian
+        let initialStatus = "Pending Payment"; // Mặc định cho bank, deposit, online
+
+        if (paymentMethod === "cod") {
+            initialStatus = "Confirmed"; // Chỉ COD là được Confirmed ngay
+        }
+        return {
+            id: orderId,
+            date: new Date().toLocaleDateString("vi-VN",{timeZone: "Asia/Ho_Chi_Minh"}),
+            items: checkoutItems,
+            total: totalPayment,
+            shippingFee: shippingFee,
+            shippingOption: shippingOptions[shippingOption].label,
+            paymentMethod: paymentMethod,
+            status: initialStatus,
+            address: selectedAddress!, // Dấu ! vì đã check null ở handlePlaceOrder
+            estimatedArrival: calculateEstimatedArrival()
+        };
+    };
     // Xử lý Place Order
     const handlePlaceOrder = () => {
         if (!selectedAddress || !selectedAddress.text || selectedAddress.text.trim() === "") {
@@ -160,9 +182,18 @@ const Checkout = () => {
         if (paymentMethod === "bank") {
             setShowQRModal(true);
         } else {
-            alert(`Order placed successfully via ${paymentMethod}!`);
-            navigate("/orders");
+            finishOrderProcess();
         }
+    };
+    const finishOrderProcess = () => {
+        const newOrder = createOrderData();
+
+        saveOrder(newOrder);
+
+        // Xóa giỏ hàng
+        localStorage.removeItem("cart");
+
+        navigate("/order-success", { state: { order: newOrder } });
     };
     // Nếu không có sản phẩm nào
     if (checkoutItems.length === 0) {
@@ -383,7 +414,9 @@ const Checkout = () => {
             </div>
             <PaymentQRModal
                 isOpen={showQRModal}
-                onClose={() => setShowQRModal(false)}
+                onClose={() => {setShowQRModal(false);
+                    finishOrderProcess();}}
+
                 totalAmount={totalPayment}
             />
             {/*Form thêm địa chỉ*/}
