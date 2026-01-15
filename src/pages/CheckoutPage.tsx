@@ -17,7 +17,6 @@ import PaymentQRModal from "../components/payment/PaymentQRModal";
 import LogoDetails from "../components/payment/LogoDetails";
 import {Order, saveOrder} from "../utils/orderUtil";
 import {useDispatch} from "react-redux";
-import {Order, saveOrder } from '../utils/orderUtil';
 
 interface CheckoutLocationState {
     items: CartItem[];
