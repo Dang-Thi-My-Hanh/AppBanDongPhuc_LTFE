@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/account.css";
 import { accountData } from "../data/account";
@@ -62,8 +62,17 @@ function Account() {
     const [addressForm, setAddressForm] = useState({
         text: "",
     });
+    const deliveredOrders = useMemo(() => {
+        if (!user) return [];
 
-    const deliveredOrders = orderHistory.filter((orderHistory: { status: string; }) => orderHistory.status === "Delivered");
+        return orderHistory.filter(
+            (order) =>
+                order.product.idAccount === user.id &&
+                order.status === "Delivered"
+        );
+    }, [user]);
+
+
     const [showBankForm, setShowBankForm] = useState(false);
 
     const [bankForm, setBankForm] = useState({
@@ -128,6 +137,7 @@ function Account() {
             navigate("/login");
             return;
         }
+        const currentAccountId = currentUser.id;
         const defaultUser =
             accountData.users.find(u => u.id === currentUser?.id)
             ?? accountData.users[0];

@@ -14,18 +14,19 @@ import iconDeposit from "../assets/icon/checkout/deposit.svg"
 import iconOnlPayment from "../assets/icon/checkout/onlPayment.svg"
 import BankAccountSelector, { BankAccount } from "../components/payment/BankAccountSelector";
 import PaymentQRModal from "../components/payment/PaymentQRModal";
-import {useDispatch} from "react-redux";
+import LogoDetails from "../components/payment/LogoDetails";
+import {Order, saveOrder} from "../utils/orderUtil";
 interface CheckoutLocationState {
     items: CartItem[];
     totalPrice?: number;
 }
+
 const Checkout = () => {
-    const location = useLocation() as {
-        state: CheckoutLocationState;
-    };
+    const location = useLocation();
+
+    const checkoutState = location.state as CheckoutLocationState | null;
     const navigate = useNavigate();
     const checkoutItems: CartItem[] = location.state?.items || [];
-    const checkoutState = location.state as CheckoutLocationState | null;
     const totalPrice = checkoutState?.totalPrice ?? 0;
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     //const [paymentMethod, setPaymentMethod] = useState(accountData.payment || "bank");
@@ -53,23 +54,17 @@ const Checkout = () => {
         }
         setCurrentUser(user);
 
-        if (user.activeAddress && user.activeAddress.text) {
+        if (user.activeAddress?.text?.trim()) {
             setSelectedAddress(user.activeAddress);
-        }
-        else if (user.savedAddresses.length > 0) {
-            setSelectedAddress(user.savedAddresses[0]);
-        }else {
-            setSelectedAddress({
-                name: user.username || "User",
-                text: "",
-                phone: user.contact?.phone || ""
-            });
-            // navigate("/account");
+        } else if (user.savedAddresses.some(a => a.text?.trim())) {
+            setSelectedAddress(user.savedAddresses.find(a => a.text.trim())!);
+        } else {
+            setSelectedAddress(null);
         }
         if(user.payment) {
             setPaymentMethod(user.payment);
         }
-    }, [navigate]);
+    }, [navigate, location.key]);
 
     // Tính lại tổng tiền
     const Subtotal = checkoutItems.reduce((total, item) => {
@@ -91,78 +86,55 @@ const Checkout = () => {
         return arrivalDate.toLocaleDateString("en-US", options);
     };
 
-    const renderLogoDetails = (logoData: string | LogoCustomization | undefined) => {
-        if (!logoData || logoData === "No Logo") return null;
-
-        if (typeof logoData === 'string') {
-            return <div className="logo-simple-tag">Logo: {logoData}</div>;
-        }
-
-        if (logoData.logoType === "No Logo") return null;
-
-        return (
-            <div className="custom-logo-details">
-                <div className="custom-header">Logo Customization Details</div>
-                <div className="custom-grid">
-                    <div className="custom-row">
-                        <span className="c-label">Type:</span>
-                        <span className="c-value">{logoData.logoType}</span>
-                    </div>
-
-                    {logoData.positions.length > 0 && (
-                        <div className="custom-row">
-                            <span className="c-label">Positions:</span>
-                            <span className="c-value">{logoData.positions.join(", ")}</span>
-                        </div>
-                    )}
-
-                    {(logoData.width || logoData.height) && (
-                        <div className="custom-row">
-                            <span className="c-label">Size:</span>
-                            <span className="c-value">
-                                {logoData.width || "?"}cm (W) x {logoData.height || "?"}cm (H)
-                            </span>
-                        </div>
-                    )}
-
-                    {logoData.notes && (
-                        <div className="custom-row full-width">
-                            <span className="c-label">Note:</span>
-                            <span className="c-value note-text">{logoData.notes}</span>
-                        </div>
-                    )}
-
-                    {logoData.image && (
-                        <div className="custom-row full-width">
-                            <span className="c-label">Uploaded Logo:</span>
-                            <div className="uploaded-logo-box">
-                                <img src={logoData.image} alt="Customer Logo" />
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
-        );
-    };
     //hiển thị tên Logo
     const getDisplayLogoName = (logoType: any) => {
         if (!logoType) return "No Logo";
         if (typeof logoType === 'string') return logoType;
         return logoType.logoType;
     };
-    // Xử lý Place Order
+    const createOrderData = (): Order => {
+        const orderId = `#ORD-${Date.now().toString().slice(-6)}`; // Tạo ID ngẫu nhiên dựa trên thời gian
+        let initialStatus = "Pending Payment"; // Mặc định cho bank, deposit, online
+
+        if (paymentMethod === "cod") {
+            initialStatus = "Confirmed"; // Chỉ COD là được Confirmed ngay
+        }
+        return {
+            id: orderId,
+            date: new Date().toLocaleDateString("vi-VN",{timeZone: "Asia/Ho_Chi_Minh"}),
+            items: checkoutItems,
+            total: totalPayment,
+            shippingFee: shippingFee,
+            shippingOption: shippingOptions[shippingOption].label,
+            paymentMethod: paymentMethod,
+            status: initialStatus,
+            address: selectedAddress!, // Dấu ! vì đã check null ở handlePlaceOrder
+            estimatedArrival: calculateEstimatedArrival()
+        };
+    };
     const handlePlaceOrder = () => {
-        if (!selectedAddress || !selectedAddress.text || selectedAddress.text.trim() === "") {
+        if (!selectedAddress || !selectedAddress.text?.trim()) {
             alert("Please select or add a shipping address before placing order.");
             setShowAddressModal(true);
             return;
         }
+
         if (paymentMethod === "bank") {
             setShowQRModal(true);
         } else {
-            alert(`Order placed successfully via ${paymentMethod}!`);
-            navigate("/orders");
+            finishOrderProcess();
         }
+    };
+
+    const finishOrderProcess = () => {
+        const newOrder = createOrderData();
+
+        saveOrder(newOrder);
+
+        // Xóa giỏ hàng
+        localStorage.removeItem("cart");
+
+        navigate("/order-success", { state: { order: newOrder } });
     };
     // Nếu không có sản phẩm nào
     if (checkoutItems.length === 0) {
@@ -173,7 +145,7 @@ const Checkout = () => {
             </div>
         );
     }
-    if (!currentUser || !selectedAddress) return <div>Loading...</div>;
+    if (!currentUser) return <div>Loading...</div>;
     return (
         <div className="checkout-page">
             <PageHeader title="Checkout"/>
@@ -184,11 +156,21 @@ const Checkout = () => {
                     <button className="btn-change" onClick={() => setShowAddressModal(true)}>Change Address</button>
                 </div>
                 <div className="shipping-body">
-                    <p className="shipping-name">
-                        {selectedAddress.name} <span>({selectedAddress.phone})</span>
-                    </p>
-                    <p className="shipping-address">{selectedAddress.text}</p>
+                    {selectedAddress ? (
+                        <>
+                            <p className="shipping-name">
+                                {selectedAddress.name}
+                                {selectedAddress.phone && <span> ({selectedAddress.phone})</span>}
+                            </p>
+                            <p className="shipping-address">{selectedAddress.text}</p>
+                        </>
+                    ) : (
+                        <p className="shipping-empty">
+                            No shipping address yet. Please add one.
+                        </p>
+                    )}
                 </div>
+
             </div>
 
             {checkoutItems.map(item => {
@@ -224,7 +206,7 @@ const Checkout = () => {
                                 <div className="total-qty">Total Quantity: {totalQty}</div>
                             </div>
                         </div>
-                        {renderLogoDetails(item.logoType)}
+                        <LogoDetails logoData={item.logoType} />
                     </div>
                 );
             })}
@@ -383,7 +365,9 @@ const Checkout = () => {
             </div>
             <PaymentQRModal
                 isOpen={showQRModal}
-                onClose={() => setShowQRModal(false)}
+                onClose={() => {setShowQRModal(false);
+                    finishOrderProcess();}}
+
                 totalAmount={totalPayment}
             />
             {/*Form thêm địa chỉ*/}
@@ -397,7 +381,9 @@ const Checkout = () => {
                         {/* 1. Hiển thị địa chỉ Active (Đã sửa bên Account) */}
                         {currentUser.activeAddress && (
                             <div
-                                className={`address-item ${selectedAddress.text === currentUser.activeAddress.text ? "active" : ""}`}
+                                className={`address-item ${
+                                    selectedAddress?.id === currentUser.activeAddress.id ? "active" : ""
+                                }`}
                                 onClick={() => {
                                     setSelectedAddress(currentUser.activeAddress);
                                     setShowAddressModal(false);
@@ -411,7 +397,7 @@ const Checkout = () => {
                         {currentUser.savedAddresses.map((addr, index) => (
                             <div
                                 key={index}
-                                className={`address-item ${selectedAddress.id === addr.id ? "active" : ""}`}
+                                className={`address-item ${selectedAddress?.id === addr.id ? "active" : ""}`}
                                 onClick={() => {
                                     setSelectedAddress(addr);
                                     setShowAddressModal(false);
