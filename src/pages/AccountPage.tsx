@@ -62,6 +62,7 @@ function Account() {
     const [addressForm, setAddressForm] = useState({
         text: "",
     });
+
     const deliveredOrders = useMemo(() => {
         if (!user) return [];
 
@@ -71,7 +72,6 @@ function Account() {
                 order.status === "Delivered"
         );
     }, [user]);
-
 
     const [showBankForm, setShowBankForm] = useState(false);
 
@@ -137,7 +137,9 @@ function Account() {
             navigate("/login");
             return;
         }
+
         const currentAccountId = currentUser.id;
+
         const defaultUser =
             accountData.users.find(u => u.id === currentUser?.id)
             ?? accountData.users[0];
@@ -160,6 +162,8 @@ function Account() {
             phone: user.contact.phone,
             email: user.email,
         });
+
+        setPaymentMethod(user.payment);
     }, []);
     /* ================= AVATAR ================= */
     const handleChangeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -417,6 +421,7 @@ function Account() {
             {/* PAYMENT METHODS */}
             <section className="account-section">
                 <h4>Payment Methods</h4>
+
                 {paymentMethod === null && (
                     <p className="payment-empty">
                     </p>
@@ -433,6 +438,7 @@ function Account() {
                                 onClick={() => setShowBankForm(true)}>add »
                         </button>
                     )}
+
                 </label>
                 {/* BIDV DETAIL – CHỈ HIỆN KHI CHỌN BANK */}
                 {paymentMethod === "bank" && (
@@ -548,6 +554,7 @@ function Account() {
                         })}
                     </>
                 )}
+
 
                 <label className="payment-option">
                     <input

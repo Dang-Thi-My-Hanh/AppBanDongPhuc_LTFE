@@ -16,6 +16,8 @@ import BankAccountSelector, { BankAccount } from "../components/payment/BankAcco
 import PaymentQRModal from "../components/payment/PaymentQRModal";
 import LogoDetails from "../components/payment/LogoDetails";
 import {Order, saveOrder} from "../utils/orderUtil";
+import {useDispatch} from "react-redux";
+
 interface CheckoutLocationState {
     items: CartItem[];
     totalPrice?: number;
@@ -27,6 +29,7 @@ const Checkout = () => {
     const checkoutState = location.state as CheckoutLocationState | null;
     const navigate = useNavigate();
     const checkoutItems: CartItem[] = location.state?.items || [];
+
     const totalPrice = checkoutState?.totalPrice ?? 0;
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     //const [paymentMethod, setPaymentMethod] = useState(accountData.payment || "bank");

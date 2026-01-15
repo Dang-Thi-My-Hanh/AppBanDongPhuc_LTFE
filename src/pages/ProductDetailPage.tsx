@@ -158,6 +158,7 @@ const ProductDetail: React.FC = () => {
         navigate("/login");
         return null;
     }
+
     const handleAddToCart = () => {
         if (!product || currentStock === 0 || quantity === 0) return;
         if (!currentUserId) return;
