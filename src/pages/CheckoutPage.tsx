@@ -24,12 +24,12 @@ interface CheckoutLocationState {
 }
 
 const Checkout = () => {
-    const location = useLocation() as {
-        state: CheckoutLocationState;
-    };
+    const location = useLocation();
+
+    const checkoutState = location.state as CheckoutLocationState | null;
     const navigate = useNavigate();
     const checkoutItems: CartItem[] = location.state?.items || [];
-    const checkoutState = location.state as CheckoutLocationState | null;
+
     const totalPrice = checkoutState?.totalPrice ?? 0;
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     //const [paymentMethod, setPaymentMethod] = useState(accountData.payment || "bank");
@@ -57,23 +57,17 @@ const Checkout = () => {
         }
         setCurrentUser(user);
 
-        if (user.activeAddress && user.activeAddress.text) {
+        if (user.activeAddress?.text?.trim()) {
             setSelectedAddress(user.activeAddress);
-        }
-        else if (user.savedAddresses.length > 0) {
-            setSelectedAddress(user.savedAddresses[0]);
-        }else {
-            setSelectedAddress({
-                name: user.username || "User",
-                text: "",
-                phone: user.contact?.phone || ""
-            });
-            // navigate("/account");
+        } else if (user.savedAddresses.some(a => a.text?.trim())) {
+            setSelectedAddress(user.savedAddresses.find(a => a.text.trim())!);
+        } else {
+            setSelectedAddress(null);
         }
         if(user.payment) {
             setPaymentMethod(user.payment);
         }
-    }, [navigate]);
+    }, [navigate, location.key]);
 
     // Tính lại tổng tiền
     const Subtotal = checkoutItems.reduce((total, item) => {
@@ -121,19 +115,20 @@ const Checkout = () => {
             estimatedArrival: calculateEstimatedArrival()
         };
     };
-    // Xử lý Place Order
     const handlePlaceOrder = () => {
-        if (!selectedAddress || !selectedAddress.text || selectedAddress.text.trim() === "") {
+        if (!selectedAddress || !selectedAddress.text?.trim()) {
             alert("Please select or add a shipping address before placing order.");
             setShowAddressModal(true);
             return;
         }
+
         if (paymentMethod === "bank") {
             setShowQRModal(true);
         } else {
             finishOrderProcess();
         }
     };
+
     const finishOrderProcess = () => {
         const newOrder = createOrderData();
 
@@ -153,7 +148,7 @@ const Checkout = () => {
             </div>
         );
     }
-    if (!currentUser || !selectedAddress) return <div>Loading...</div>;
+    if (!currentUser) return <div>Loading...</div>;
     return (
         <div className="checkout-page">
             <PageHeader title="Checkout"/>
@@ -164,11 +159,21 @@ const Checkout = () => {
                     <button className="btn-change" onClick={() => setShowAddressModal(true)}>Change Address</button>
                 </div>
                 <div className="shipping-body">
-                    <p className="shipping-name">
-                        {selectedAddress.name} <span>({selectedAddress.phone})</span>
-                    </p>
-                    <p className="shipping-address">{selectedAddress.text}</p>
+                    {selectedAddress ? (
+                        <>
+                            <p className="shipping-name">
+                                {selectedAddress.name}
+                                {selectedAddress.phone && <span> ({selectedAddress.phone})</span>}
+                            </p>
+                            <p className="shipping-address">{selectedAddress.text}</p>
+                        </>
+                    ) : (
+                        <p className="shipping-empty">
+                            No shipping address yet. Please add one.
+                        </p>
+                    )}
                 </div>
+
             </div>
 
             {checkoutItems.map(item => {
@@ -379,7 +384,9 @@ const Checkout = () => {
                         {/* 1. Hiển thị địa chỉ Active (Đã sửa bên Account) */}
                         {currentUser.activeAddress && (
                             <div
-                                className={`address-item ${selectedAddress.text === currentUser.activeAddress.text ? "active" : ""}`}
+                                className={`address-item ${
+                                    selectedAddress?.id === currentUser.activeAddress.id ? "active" : ""
+                                }`}
                                 onClick={() => {
                                     setSelectedAddress(currentUser.activeAddress);
                                     setShowAddressModal(false);
@@ -393,7 +400,7 @@ const Checkout = () => {
                         {currentUser.savedAddresses.map((addr, index) => (
                             <div
                                 key={index}
-                                className={`address-item ${selectedAddress.id === addr.id ? "active" : ""}`}
+                                className={`address-item ${selectedAddress?.id === addr.id ? "active" : ""}`}
                                 onClick={() => {
                                     setSelectedAddress(addr);
                                     setShowAddressModal(false);

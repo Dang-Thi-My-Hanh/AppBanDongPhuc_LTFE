@@ -4,6 +4,7 @@ export const orderHistory = [
         id: "ORD034",
         product: {
             id: 34,
+            idAccount: 1,
             name: "Custom Design Product",
             price: 450000,
             description: "Product made according to customer requirements.",
@@ -35,6 +36,7 @@ export const orderHistory = [
     {
         id: "ORD035",
         product: {
+            idAccount: 1,
             id: 35,
             name: "Office Uniform Polo Shirt",
             price: 179000,
@@ -67,6 +69,7 @@ export const orderHistory = [
     {
         id: "ORD036",
         product: {
+            idAccount: 3,
             id: 36,
             name: "Company T-Shirt",
             price: 99000,
