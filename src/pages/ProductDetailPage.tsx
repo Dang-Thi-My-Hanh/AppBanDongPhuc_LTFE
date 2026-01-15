@@ -13,10 +13,12 @@ import { FiShoppingCart } from "react-icons/fi";
 import chatIcon from "../assets/images/ImageHome/icon/iconChat.png";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../components/redux/Cart";
+import OrderModal, {TempOrderItem} from "../components/cart/ModalAddToCart";
 
 const ProductDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     /* ================== PRODUCT ================== */
     const product = useMemo(
@@ -24,8 +26,6 @@ const ProductDetail: React.FC = () => {
         [id]
     );
 
-
-    const dispatch = useDispatch();
     /* ================== STATES ================== */
     const [mainImage, setMainImage] = useState("");
     const [selectedSize, setSelectedSize] = useState("");
@@ -55,7 +55,9 @@ const ProductDetail: React.FC = () => {
         { label: "5 sao", value: 5 },
     ];
     const [selectedType, setSelectedType] = useState<string | null>(null);
+    const [selectedColor, setSelectedColor] = useState("");
 
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
 
     /* ================== USERS MAP ================== */
     const userMap = useMemo(() => {
@@ -80,15 +82,18 @@ const ProductDetail: React.FC = () => {
     const featuredProducts = useMemo(() => {
         if (!product) return [];
         const productTypes = normalizeTypes(product.types);
-        return uniforms
+        const filteredList = uniforms
             .filter(u => {
                 if (u.id === product.id) return false;
                 const uTypes = normalizeTypes(u.types);
-                return uTypes.some(type =>
-                    productTypes.includes(type)
-                );
+                return uTypes.some(type => productTypes.includes(type));
             })
             .slice(0, 8);
+
+        return filteredList.map(item => ({
+            ...item,
+            types: normalizeTypes(item.types)
+        })) as Product[];
     }, [product]);
     /* ================== RATING ================== */
     const totalComments = productReviews.length;
@@ -102,8 +107,55 @@ const ProductDetail: React.FC = () => {
     const handleToggleComment = () => {
         setOpenTab(prev => (prev === "comment" ? null : "comment"));
     };
-    /* ================== EFFECTS ================== */
+
     useEffect(() => {
+        if (product) {
+            setMainImage(product.images[0]);
+
+            setSelectedSize(product.sizes[0]?.size || "");
+            if (product.colors?.length) setSelectedColor(product.colors[0]);
+        }
+    }, [product]);
+
+    if (!product) return <p>Product not found</p>;
+
+    /* ================== HANDLERS ================== */
+
+    // 1. Logic khi nhấn nút "Add to Cart" -> Mở Modal
+    const handleOpenBulkModal = () => {
+        if (!currentUserId) {
+            navigate("/login");
+            return;
+        }
+        setShowConfirmModal(true);
+    };
+
+    // 2. Callback nhận dữ liệu từ Modal và bắn lên Redux
+    const handleAddToCart = (items: TempOrderItem[]) => {
+        if (!currentUserId) return;
+
+        items.forEach((item, index) => {
+            dispatch(addToCart({
+                userId: currentUserId,
+                item: {
+                    id: Date.now() + index, // Unique ID
+                    idAccount: currentUserId,
+                    name: product.name,
+                    image: mainImage,
+                    price: product.price,
+                    gender: item.gender,
+                    color: item.color,
+                    logoType: logoCustomization,
+                    sizes: [{ size: item.size, quantity: item.quantity }],
+                },
+            }));
+        });
+
+        setShowConfirmModal(false);
+        alert(`Successfully added ${items.length} line items to cart!`);
+    };
+
+    /*useEffect(() => {
         if (!product) return;
         setMainImage(product.images[0]);
         setSelectedSize(product.sizes[0].size);
@@ -111,6 +163,7 @@ const ProductDetail: React.FC = () => {
         if (product.genders?.length) {
             setSelectedGender(product.genders[0]);
         }
+        if (product.colors?.length) setSelectedColor(product.colors[0]);
     }, [product]);
     useEffect(() => {
         if (!product) return;
@@ -123,7 +176,7 @@ const ProductDetail: React.FC = () => {
         setQuantity(q =>
             Math.min(Math.max(product.minimumOrderQuantity, q), stock)
         );
-    }, [selectedSize, product]);
+    }, [selectedSize, product]);*/
     /* ================== EARLY RETURN ================== */
     if (!product) return <p>Product not found</p>;
     /* ================== HANDLERS ================== */
@@ -158,10 +211,9 @@ const ProductDetail: React.FC = () => {
         navigate("/login");
         return null;
     }
-
-    const handleAddToCart = () => {
-        if (!product || currentStock === 0 || quantity === 0) return;
-        if (!currentUserId) return;
+/*
+    const handleConfirmAddToCart = () => {
+        if (!product || !currentUserId) return;
 
         dispatch(addToCart({
             userId: currentUserId,
@@ -172,6 +224,7 @@ const ProductDetail: React.FC = () => {
                 image: mainImage,
                 price: product.price,
                 gender: selectedGender,
+                color: selectedColor,
                 logoType: logoCustomization,
                 sizes: [
                     {
@@ -181,7 +234,9 @@ const ProductDetail: React.FC = () => {
                 ],
             },
         }));
-    };
+        setShowConfirmModal(false); // Đóng modal
+        alert("Đã thêm vào giỏ hàng thành công!");
+    };*/
     const handleBuyNow = () => {
         if (!product || currentStock === 0 || quantity === 0) return;
         if (!currentUserId) return;
@@ -192,7 +247,8 @@ const ProductDetail: React.FC = () => {
             name: product.name,
             image: mainImage,
             price: product.price,
-            gender: selectedGender,
+            gender: selectedGender || (product.genders ? product.genders[0] : "Female"),
+            color: selectedColor,
             logoType: logoCustomization,
             sizes: [
                 {
@@ -313,6 +369,20 @@ const ProductDetail: React.FC = () => {
                         </div>
                     </div>
                 )}
+                {product.colors && product.colors.length > 0 && (
+                    <div className="color-row">
+                        <label className="info-label">Color:</label>
+                        <div className="color-options">
+                            {product.colors.map((c) => (
+                                <button
+                                    key={c} type="button"
+                                    className={`btn-option ${selectedColor === c ? "active" : ""}`}
+                                    onClick={() => setSelectedColor(c)}>{c}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
                 {/* Quantity */}
                 <div className="quantity-wrapper">
                     <label>Quantity</label>
@@ -350,7 +420,7 @@ const ProductDetail: React.FC = () => {
                     <button
                         className="btn-cart"
                         disabled={currentStock === 0 || quantity === 0}
-                        onClick={handleAddToCart}
+                        onClick={handleOpenBulkModal}
                         aria-label="Add to Cart"
                     >
                         <FiShoppingCart />
@@ -459,9 +529,18 @@ const ProductDetail: React.FC = () => {
                                 </div>
                             </div>
                         </div>
+
                     )}
                 </div>
             </div>
+            <OrderModal
+                isOpen={showConfirmModal}
+                onClose={() => setShowConfirmModal(false)}
+                product={product}
+                logoCustomization={logoCustomization}
+                onConfirm={handleAddToCart}
+            />
+
             {/*LIST PRODUCT*/}
             <div className="list-products-section">
                 <div className="products-page">

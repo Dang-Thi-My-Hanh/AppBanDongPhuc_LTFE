@@ -4,6 +4,7 @@
 }
 
 .page-bg::before {
+    top: 0px;
     content: "";
     position: fixed;
     inset: 0;

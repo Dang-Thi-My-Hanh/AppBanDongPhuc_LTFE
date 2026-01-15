@@ -1,5 +1,6 @@
 .products-page {
     padding: 70px 12px;
+    background: #F6F9FF;
 }
 
 /* SECTION TITLE */
@@ -180,7 +181,7 @@
 /*Trang phân loại sản phẩm*/
 .category-page {
     margin: 0px;
-    padding: 0px;
+    padding-top: 40px;
     width: 100%;
     position: relative;
 }

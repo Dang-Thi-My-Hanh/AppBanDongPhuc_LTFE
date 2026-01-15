@@ -16,6 +16,6 @@ export interface Product {
     sizes: ProductSize[];  // danh sách size và stock
     minimumOrderQuantity: number;
     colors?: string[];     // ví dụ ["Red", "Blue"]
-    types?: string[];      // ví dụ ["Premium", "Standard"]
+    types: string[];      // ví dụ ["Premium", "Standard"]
     allowLogoUpload?: boolean; // có cho phép upload logo
 }

@@ -91,7 +91,7 @@ const Orders: React.FC = () => {
                                 </div>
                             </div>
 
-                            {/* Body: Loop qua từng item */}
+                            {/* Loop qua từng item */}
                             {order.items.map((item, index) => (
                                 <div key={index}>
                                     <div className="card-body">

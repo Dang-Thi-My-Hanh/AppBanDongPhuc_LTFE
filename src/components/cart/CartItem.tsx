@@ -89,7 +89,7 @@ const CartItem: React.FC<Props> = ({ item, userId, isSelected, onToggleSelect })
 
                     <div className="cart-attributes">
                         <span className="tag">{item.gender}</span>
-
+                        <span className="tag">{item.color}</span>
                         <span
                             className="tag clickable"
                             onClick={() => setShowLogoModal(true)}
@@ -110,7 +110,7 @@ const CartItem: React.FC<Props> = ({ item, userId, isSelected, onToggleSelect })
             <div className="cart-sizes-list">
                 {item.sizes.map((s) => (
                     <div key={s.size} className="cart-size-row">
-                        <span>Size: <b>{s.size}</b></span>
+                        <span>Size: {s.size}</span>
 
                         <div className="quantity-control">
                             <button

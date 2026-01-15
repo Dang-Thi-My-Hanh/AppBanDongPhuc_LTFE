@@ -352,7 +352,7 @@ function Account() {
             {activeTab === "history" && (
                 <section className="purchase-history">
                     {deliveredOrders.length === 0 ? (
-                        <p>Không có đơn hàng đã giao</p>
+                        <p>No delivered orders found</p>
                     ) : (
                         deliveredOrders.map((order) => (
                             <div className="order-card" key={order.id}>
@@ -409,8 +409,8 @@ function Account() {
 
                                 <div className="order-footer">
                                     <div className="order-actions">
-                                        <button className="btn-outline">Trả hàng / hoàn tiền</button>
-                                        <button className="btn-primary">Đánh giá</button>
+                                        <button className="btn-outline">Return / Refund</button>
+                                        <button className="btn-primary">Review</button>
                                     </div>
                                 </div>
                             </div>

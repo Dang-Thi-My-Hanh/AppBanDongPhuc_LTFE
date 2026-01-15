@@ -67,7 +67,8 @@ const Cart = () => {
             }
         });
     };
-    return (<div className="cart">
+    return (
+        <div className="cart">
             <PageHeader
                 title="Shopping Cart"
                 count={cartItems.length}

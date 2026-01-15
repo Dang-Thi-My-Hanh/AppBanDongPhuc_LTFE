@@ -1,5 +1,6 @@
+import { Product } from "../types/ProductType";
 
-const uniforms = [
+const uniforms: Product[] = [
     {
         id: 1,
         name: "Office Uniform Polo Shirt",
@@ -847,7 +848,7 @@ const uniforms = [
         ],
         colors: ["Black", "White", "Red","Navy"],
         genders: ["Male","Female"],
-        types: "Set",
+        types: ["Set"],
         allowLogoUpload: true,
     },
 
