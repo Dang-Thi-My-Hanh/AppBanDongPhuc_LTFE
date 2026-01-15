@@ -155,7 +155,7 @@ const ProductDetail: React.FC = () => {
 
     const currentUserId = currentUser?.id;
     if (!currentUserId) {
-        console.error("User not logged in");
+        navigate("/login");
         return null;
     }
 

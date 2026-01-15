@@ -36,7 +36,6 @@ const normalizeUser = (raw: any): User => {
         isMock: raw.isMock || false
     };
 };
-
 export const getCurrentUser = (): User | null => {
 
     const storedJson = localStorage.getItem("currentUser");
@@ -50,7 +49,8 @@ export const getCurrentUser = (): User | null => {
     const mergedRawUser = {
         ...dbUser,      // Gốc
         ...storedUser,  // Mới nhất
-        username: storedUser.username || storedUser.name || dbUser?.name
+        addresses: storedUser.addresses ?? dbUser?.addresses ?? [],
+        activeAddress: storedUser.activeAddress ?? dbUser?.addresses,
     };
 
     return normalizeUser(mergedRawUser);
