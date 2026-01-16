@@ -17,9 +17,8 @@ const Cart = () => {
 
     const currentUserId: number | null = currentUser?.id ?? null;
 
-    const cartItems = useSelector((state: RootState) =>
-        currentUserId ? state.cart.carts[currentUserId] ?? [] : []
-    );
+    const rawCartItems = useSelector((state: RootState) => currentUserId ? state.cart.carts[currentUserId] : [] );
+    const cartItems = React.useMemo(() => rawCartItems ?? [], [rawCartItems]);
 
     // State lưu danh sách ID các sản phẩm được tick chọn
     const [selectedItems, setSelectedItems] = useState<number[]>([]);

@@ -10,9 +10,10 @@ import { User, Address } from "../types/AccountType";
 import defaultAvatar from "../assets/images/avtAccount/avt.png";
 
 export const normalizeUser = (raw: any): User => {
-    const addresses: Address[] = Array.isArray(raw.addresses)
-        ? raw.addresses.map((addr: any) => ({
-            id: addr.id,
+    const rawAddresses = raw.savedAddresses || raw.addresses || [];
+    const addresses: Address[] = Array.isArray(rawAddresses)
+        ? rawAddresses.map((addr: any) => ({
+            id: addr.id || Date.now(),
             name: addr.name ?? "",
             text: addr.text ?? "",
             phone: addr.phone ?? "",
@@ -20,19 +21,22 @@ export const normalizeUser = (raw: any): User => {
         }))
         : [];
 
+    const activeAddr = raw.activeAddress && raw.activeAddress.text
+        ? raw.activeAddress
+        : (addresses[0] ?? {
+            id: Date.now(),
+            name: "",
+            text: "",
+            phone: "",
+            map: "",
+        });
     return {
         id: raw.id ?? 0,
         username: raw.username ?? raw.user?.name ?? "",
         email: raw.email ?? raw.user?.email ?? "",
         avatar: raw.avatar ?? raw.user?.avatar ?? "/images/avt.png",
 
-        activeAddress: addresses[0] ?? {
-            id: 0,
-            name: "",
-            text: "",
-            phone: "",
-            map: "",
-        },
+        activeAddress: activeAddr,
         savedAddresses: addresses,
         contact: {
             phone: raw.contact?.phone ?? "",
@@ -130,29 +134,29 @@ function Account() {
     };
     /* ================= INIT USER ================= */
     useEffect(() => {
-        const currentUser = JSON.parse(
-            localStorage.getItem("currentUser") || "null"
-        );
+        const currentUserStr = localStorage.getItem("currentUser");
+        const currentUser = currentUserStr ? JSON.parse(currentUserStr) : null;
         if (!currentUser || !currentUser.isLogin) {
             navigate("/login");
             return;
         }
 
         //const currentAccountId = currentUser.id;
+        let finalUserRaw = currentUser;
 
-        const defaultUser =
-            accountData.users.find(u => u.id === currentUser?.id)
-            ?? accountData.users[0];
-        const rawUser = currentUser.isMock
-            ? {
-                ...accountData,
-                ...currentUser,
-                addresses: currentUser?.addresses ?? defaultUser.addresses,
-                contact: currentUser?.contact ?? defaultUser.contact,
-            }
-            : currentUser;
+        if (currentUser.isMock && (!currentUser.savedAddresses || currentUser.savedAddresses.length === 0)) {
+            const defaultUser = accountData.users.find(u => u.id === currentUser?.id) ?? accountData.users[0];
+            finalUserRaw = {
+                ...defaultUser, // Lấy base từ mock
+                ...currentUser, // Ghi đè bằng local storage
+                // Nếu local storage chưa có address thì mới lấy default
+                addresses: (currentUser.savedAddresses && currentUser.savedAddresses.length > 0)
+                    ? currentUser.savedAddresses
+                    : defaultUser.addresses,
+            };
+        }
 
-        const user = normalizeUser(rawUser);
+        const user = normalizeUser(finalUserRaw);
         // Fill form
         setUser(user);
         //console.log("user.avatar =", user.avatar);
@@ -168,18 +172,17 @@ function Account() {
     /* ================= AVATAR ================= */
     const handleChangeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (!file) return;
+        if (!file || !user) return;
 
         const reader = new FileReader();
         reader.onloadend = () => {
-            setUser((prev: any) => ({
-                ...prev,
-                avatar: reader.result, // chỉ dùng để render
-            }));
+            const updatedUser = { ...user, avatar: reader.result as string };
+            setUser(updatedUser);
+            saveCurrentUser(updatedUser);
         };
-
         reader.readAsDataURL(file);
     };
+
 
     /* ================= CONTACT EDIT ================= */
     const handleSaveContact = () => {
@@ -194,8 +197,7 @@ function Account() {
         };
 
         setUser(updatedUser);
-
-        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+        saveCurrentUser(updatedUser);
         setIsEditingContact(false);
     };
 
@@ -215,12 +217,29 @@ function Account() {
     };
     const handleSaveAddress = () => {
         if (!user) return;
+        const newActiveAddress = {
+            ...user.activeAddress,
+            text: addressForm.text,
+            id: user.activeAddress.id || Date.now()
+        };
+        let newSavedAddresses = [...user.savedAddresses];
+        const existingIndex = newSavedAddresses.findIndex(a => a.id === newActiveAddress.id);
+
+        if (existingIndex >= 0) {
+            newSavedAddresses[existingIndex] = newActiveAddress;
+        } else {
+            // Nếu list rỗng hoặc active address chưa từng nằm trong list
+            if (newSavedAddresses.length === 0) {
+                newSavedAddresses = [newActiveAddress];
+            } else {
+                // update cái đầu tiên
+                newSavedAddresses[0] = newActiveAddress;
+            }
+        }
         const updatedUser : User = {
             ...user,
-            activeAddress: {
-                ...user.activeAddress,
-                text: addressForm.text
-            }
+            activeAddress: newActiveAddress,
+            savedAddresses: newSavedAddresses
         };
 
         setUser(updatedUser);

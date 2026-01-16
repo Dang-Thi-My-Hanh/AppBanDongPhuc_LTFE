@@ -18,12 +18,12 @@ import PaymentQRModal from "../components/payment/PaymentQRModal";
 import LogoDetails from "../components/payment/LogoDetails";
 import {Order, saveOrder} from "../utils/orderUtil";
 import {useDispatch} from "react-redux";
-
+/*
 interface CheckoutLocationState {
     items: CartItem[];
     totalPrice?: number;
 }
-
+*/
 const Checkout = () => {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -59,15 +59,25 @@ const Checkout = () => {
         }
         setCurrentUser(user);
 
-        if (user.activeAddress?.text?.trim()) {
+        if (user.activeAddress && user.activeAddress.text && user.activeAddress.text.trim() !== "") {
             setSelectedAddress(user.activeAddress);
-        } else if (user.savedAddresses.some(a => a.text?.trim())) {
-            setSelectedAddress(user.savedAddresses.find(a => a.text.trim())!);
-        } else {
+        }
+        // kiểm tra Saved Addresses có cái nào không
+        else if (user.savedAddresses && user.savedAddresses.length > 0) {
+            // Tìm cái nào có text
+            const validAddr = user.savedAddresses.find(a => a.text && a.text.trim() !== "");
+            if (validAddr) {
+                setSelectedAddress(validAddr);
+            } else {
+                setSelectedAddress(user.savedAddresses[0]); // Lấy cái đầu tiên dù rỗng để hiển thị form
+            }
+        }
+        // không có gì hết
+        else {
             setSelectedAddress(null);
         }
         if(user.payment) {
-            setPaymentMethod(user.payment);
+            setPaymentMethod(user.payment as any);
         }
     }, [navigate, location.key]);
 
@@ -121,7 +131,9 @@ const Checkout = () => {
     const handlePlaceOrder = () => {
         if (!selectedAddress || !selectedAddress.text?.trim()) {
             alert("Please select or add a shipping address before placing order.");
-            setShowAddressModal(true);
+            //setShowAddressModal(true);
+            const confirmEdit = window.confirm("You don't have a shipping address. Go to Account settings?");
+            if (confirmEdit) navigate("/account");
             return;
         }
 
