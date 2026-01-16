@@ -140,7 +140,7 @@ const ProductDetail: React.FC = () => {
             dispatch(addToCart({
                 userId: currentUserId,
                 item: {
-                    id: Date.now() + index, // Unique ID
+                    id: Date.now() + index,
                     idAccount: currentUserId,
                     name: product.name,
                     image: mainImage,

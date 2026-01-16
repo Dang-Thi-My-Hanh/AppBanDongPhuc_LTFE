@@ -16,7 +16,7 @@ interface OrderModalProps {
     isOpen: boolean;
     onClose: () => void;
     product: Product;
-    logoCustomization: LogoCustomization;
+    logoCustomization: LogoCustomization; // Nhận props từ cha
     onConfirm: (items: TempOrderItem[]) => void;
 }
 
@@ -54,7 +54,7 @@ const OrderModal: React.FC<OrderModalProps> = ({
     const handleAddVariantToTemp = () => {
         if (modalForm.quantity <= 0) return;
 
-        // Logic gộp dòng nếu chọn trùng biến thể (Optional)
+        // Logic gộp dòng nếu chọn trùng biến thể
         const existingIndex = tempOrderItems.findIndex(item =>
             item.color === modalForm.color &&
             item.size === modalForm.size &&
@@ -186,7 +186,16 @@ const OrderModal: React.FC<OrderModalProps> = ({
                     {/* FOOTER SECTION */}
                     <div className="section-footer">
                         <div className="summary-info">
-                            <div>Logo: <strong>{logoCustomization.logoType}</strong></div>
+                            <div className="logo-group">
+                                <span>Logo: <strong>{logoCustomization.logoType}</strong></span>
+                                {logoCustomization.image && (
+                                    <img
+                                        src={logoCustomization.image}
+                                        alt="Logo Thumb"
+                                        style={{ width: '24px', height: '24px', objectFit: 'contain', border: '1px solid #ddd', borderRadius: '4px' }}
+                                    />
+                                )}
+                            </div>
                             <div className="total-price">Total: {tempTotalPrice.toLocaleString()} VND</div>
                         </div>
                         <div className="action-buttons">

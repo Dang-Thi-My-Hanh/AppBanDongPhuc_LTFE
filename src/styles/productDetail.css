@@ -520,7 +520,11 @@ select {
     align-items: center;
     font-size: 13px;
 }
-
+.logo-group{
+    display: flex;
+    alignItems: center;
+    gap: 8px;
+}
 .total-price {
     font-size: 15px;
     font-weight: 700;
