@@ -1,4 +1,4 @@
-import {useParams, useNavigate, useLocation} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import React, {useState, useEffect, useMemo} from "react";
 import uniforms from "../data/uniforms";
 import "../styles/productDetail.css";
@@ -76,8 +76,10 @@ const ProductDetail: React.FC = () => {
         if (selectedRating === null) return productReviews;
         return productReviews.filter(r => r.rating === selectedRating);
     }, [productReviews, selectedRating]);
-    const normalizeTypes = (types: string | string[]) =>
-        Array.isArray(types) ? types : [types];
+    const normalizeTypes = (types?: string | string[]) =>{
+        if (!types) return [];
+        return Array.isArray(types) ? types : [types];
+    };
 
     const featuredProducts = useMemo(() => {
         if (!product) return [];
@@ -93,7 +95,7 @@ const ProductDetail: React.FC = () => {
         return filteredList.map(item => ({
             ...item,
             types: normalizeTypes(item.types)
-        })) as Product[];
+        }));
     }, [product]);
     /* ================== RATING ================== */
     const totalComments = productReviews.length;
@@ -155,28 +157,6 @@ const ProductDetail: React.FC = () => {
         alert(`Successfully added ${items.length} line items to cart!`);
     };
 
-    /*useEffect(() => {
-        if (!product) return;
-        setMainImage(product.images[0]);
-        setSelectedSize(product.sizes[0].size);
-        setQuantity(product.minimumOrderQuantity);
-        if (product.genders?.length) {
-            setSelectedGender(product.genders[0]);
-        }
-        if (product.colors?.length) setSelectedColor(product.colors[0]);
-    }, [product]);
-    useEffect(() => {
-        if (!product) return;
-        const stock =
-            product.sizes.find(s => s.size === selectedSize)?.stock ?? 0;
-        if (stock === 0) {
-            setQuantity(0);
-            return;
-        }
-        setQuantity(q =>
-            Math.min(Math.max(product.minimumOrderQuantity, q), stock)
-        );
-    }, [selectedSize, product]);*/
     /* ================== EARLY RETURN ================== */
     if (!product) return <p>Product not found</p>;
     /* ================== HANDLERS ================== */
@@ -207,36 +187,7 @@ const ProductDetail: React.FC = () => {
     );
 
     const currentUserId = currentUser?.id;
-    if (!currentUserId) {
-        navigate("/login");
-        return null;
-    }
-/*
-    const handleConfirmAddToCart = () => {
-        if (!product || !currentUserId) return;
 
-        dispatch(addToCart({
-            userId: currentUserId,
-            item: {
-                id: Date.now(), // cartItemId
-                idAccount: currentUserId,
-                name: product.name,
-                image: mainImage,
-                price: product.price,
-                gender: selectedGender,
-                color: selectedColor,
-                logoType: logoCustomization,
-                sizes: [
-                    {
-                        size: selectedSize,
-                        quantity,
-                    },
-                ],
-            },
-        }));
-        setShowConfirmModal(false); // Đóng modal
-        alert("Đã thêm vào giỏ hàng thành công!");
-    };*/
     const handleBuyNow = () => {
         if (!product || currentStock === 0 || quantity === 0) return;
         if (!currentUserId) return;
@@ -555,4 +506,3 @@ const ProductDetail: React.FC = () => {
 };
 
 export default ProductDetail;
-;

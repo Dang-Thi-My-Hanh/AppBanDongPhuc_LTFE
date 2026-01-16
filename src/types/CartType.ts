@@ -1,5 +1,5 @@
 import React from 'react';
-// src/components/redux/cartTypes.ts
+
 export interface LogoCustomization {
     logoType: string; // "Printing", "Embroidery", "No Logo"
     positions: string[];

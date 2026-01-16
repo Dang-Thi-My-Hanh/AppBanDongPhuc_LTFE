@@ -1,4 +1,4 @@
-import types from "../../components/redux/tyles"
+import types from "../../data/tyles"
 
 //const types = ['T-shirt', 'Polo', 'Shirt', 'Jacket', 'Pants', 'Short Pants'];
 interface Props {
