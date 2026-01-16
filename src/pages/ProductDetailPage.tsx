@@ -54,7 +54,7 @@ const ProductDetail: React.FC = () => {
         { label: "4 sao", value: 4 },
         { label: "5 sao", value: 5 },
     ];
-    const [selectedType, setSelectedType] = useState<string | null>(null);
+    const [selectedType] = useState<string | null>(null);
     const [selectedColor, setSelectedColor] = useState("");
 
     const [showConfirmModal, setShowConfirmModal] = useState(false);

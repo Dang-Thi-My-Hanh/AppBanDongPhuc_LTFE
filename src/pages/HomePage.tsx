@@ -39,7 +39,7 @@ function HomePage() {
     const keyword = useSelector(
         (state: RootState) => state.search.keyword
     );
-    const [selectedType, setSelectedType] = useState<string | null>(null);
+    const [selectedType] = useState<string | null>(null);
     const filteredProducts = uniforms.filter(
         u => {
             const mType = selectedType

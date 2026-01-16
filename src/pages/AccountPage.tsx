@@ -5,7 +5,7 @@ import { accountData } from "../data/account";
 import { BankAccount  } from "../types/bank";
 import defaultMap from "../assets/images/ImageHome/avarta/map2.png";
 import {orderHistory} from "../data/orderHistory";
-import {getCurrentUser, saveCurrentUser} from "../utils/accountUtil";
+import {saveCurrentUser} from "../utils/accountUtil";
 import { User, Address } from "../types/AccountType";
 import defaultAvatar from "../assets/images/avtAccount/avt.png";
 
@@ -138,7 +138,7 @@ function Account() {
             return;
         }
 
-        const currentAccountId = currentUser.id;
+        //const currentAccountId = currentUser.id;
 
         const defaultUser =
             accountData.users.find(u => u.id === currentUser?.id)
@@ -164,7 +164,7 @@ function Account() {
         });
 
         setPaymentMethod(user.payment);
-    }, []);
+    }, [navigate]);
     /* ================= AVATAR ================= */
     const handleChangeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

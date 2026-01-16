@@ -16,7 +16,6 @@ import SignupPage from "./pages/SignupPage";
 import CategoryProducts from "./pages/Products/CategoryProducts";
 import ProductDetail from './pages/ProductDetailPage';
 import BackLayout from "./layouts/BackLayout";
-import LoginLayout from "./layouts/LoginLayout";
 import Checkout from "./pages/CheckoutPage";
 import OrderSuccess from "./pages/OrderSuccess";
 import OrderDetail from "./pages/OrderDetail";

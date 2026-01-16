@@ -1,11 +1,7 @@
 // src/components/common/Header2.tsx
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setKeyword, clearKeyword } from "../redux/Search";
-
 /* Icons */
-import searchIcon from "../../assets/icon/header/search.svg";
 import cartIcon from "../../assets/icon/header/cart.svg";
 import "../../styles/header2.css";
 interface Header2Props {
@@ -20,7 +16,6 @@ const Header2: React.FC<Header2Props> = ({
                                              showCart = true,
                                          }) => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     return (
         <header className="header">

@@ -37,7 +37,7 @@ const CategoryProducts: React.FC = () => {
         <div className="category-page">
             <div className="category-header">
                 <img
-                    src={IconMenu}
+                    src={IconMenu} alt="menu"
                     className="menu-icon"
                     onClick={() => setOpenMenu(true)}
                 />
@@ -60,7 +60,7 @@ const CategoryProducts: React.FC = () => {
             {/* Style filter */}
             <div className="category-styles">
                 <img
-                    src={IconFilter}
+                    src={IconFilter} alt="filter"
                     className="filter-icon"
                     onClick={() => {
                         if (openStyle) setSelectedType(null); // reset filter nếu đang mở
@@ -102,7 +102,7 @@ const CategoryProducts: React.FC = () => {
                 className="scroll-top"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
-                <img src={IconUp} />
+                <img src={IconUp} alt="upper"/>
             </button>
         </div>
     );

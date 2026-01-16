@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getOrderById, updateOrder, Order } from "../utils/orderUtil";
 import Navbar from "../components/common/Navbar";
 import PageHeader from "../components/common/PageHeader";
@@ -10,7 +10,7 @@ import { Address } from "../types/AccountType";
 
 const OrderDetail = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const [order, setOrder] = useState<Order | null>(null);
 
     // chỉnh sửa

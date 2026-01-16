@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { getOrders, Order } from "../utils/orderUtil";
 import {useLocation, useNavigate} from "react-router-dom";
 import Navbar from "../components/common/Navbar";
@@ -14,7 +14,11 @@ const Orders: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     const [activeTab, setActiveTab] = useState(location.state?.activeTab ||"Confirmed");
     // Lấy thông tin user hiện tại
-    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+    //const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+    const currentUser = useMemo(() => {
+        return JSON.parse(localStorage.getItem("currentUser") || "null");
+    }, []);
+
     useEffect(() => {
         if (!currentUser) {
 
@@ -24,7 +28,7 @@ const Orders: React.FC = () => {
         // Load danh sách đơn hàng từ LocalStorage
         const data = getOrders(currentUser.id);
         setOrders(data);
-    }, [navigate]);
+    }, [currentUser, navigate]);
     // Lọc đơn hàng theo Tab
     const filteredOrders = orders.filter(order => {
         if (activeTab === "Pending Payment") {
@@ -87,7 +91,7 @@ const Orders: React.FC = () => {
                             <div className="card-header-bar">
                                 <span className="order-id">{order.id}</span>
                                 <div className="order-date">
-                                <img src={iconDate}/><span>{order.date}</span>
+                                <img src={iconDate} alt="date"/><span>{order.date}</span>
                                 </div>
                             </div>
 

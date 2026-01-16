@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CartItem, LogoCustomization } from "../types/CartType";
+import { CartItem } from "../types/CartType";
 import {removeFromCart} from "../components/redux/Cart";
 import Navbar from "../components/common/Navbar";
 import '../styles/checkout.css';
 import PageHeader from "../components/common/PageHeader";
-import { accountData } from "../data/account";
+/*import { accountData } from "../data/account";*/
 import { User, Address } from "../types/AccountType";
 import { getCurrentUser } from "../utils/accountUtil";
 import {shippingOptions} from "../data/shipping";
@@ -28,11 +28,11 @@ const Checkout = () => {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const checkoutState = location.state as CheckoutLocationState | null;
+    //const checkoutState = location.state as CheckoutLocationState | null;
     const navigate = useNavigate();
     const checkoutItems: CartItem[] = location.state?.items || [];
 
-    const totalPrice = checkoutState?.totalPrice ?? 0;
+    //const totalPrice = checkoutState?.totalPrice ?? 0;
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     //const [paymentMethod, setPaymentMethod] = useState(accountData.payment || "bank");
     const [paymentMethod, setPaymentMethod] = useState<
@@ -249,7 +249,7 @@ const Checkout = () => {
                 <b>Payment Methods</b>
 
                 <label className="payment-row">
-                    <img src={iconTransfer}/>
+                    <img src={iconTransfer} alt="Payment Transfer" />
                     <span>Bank Transfer</span>
                     <input
                         type="radio"
@@ -260,7 +260,7 @@ const Checkout = () => {
                 </label>
 
                 <label className="payment-row">
-                    <img src={iconDeposit}/>
+                    <img src={iconDeposit} alt="Payment deposit"/>
                     <span>Deposit Payment (50%)</span>
                     <input
                         type="radio"
@@ -271,7 +271,7 @@ const Checkout = () => {
                 </label>
 
                 <label className="payment-row">
-                    <img src={iconOnlPayment}/>
+                    <img src={iconOnlPayment} alt="Payment online"/>
                     <span>Online Payment</span>
                     <input
                         type="radio"
@@ -282,7 +282,7 @@ const Checkout = () => {
                 </label>
 
                 <label className="payment-row">
-                    <img src={iconCash}/>
+                    <img src={iconCash} alt="Payment cash"/>
                     <span>Cash on Delivery</span>
                     <input
                         type="radio"

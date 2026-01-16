@@ -22,7 +22,7 @@ const SidebarCategory = () => {
                         onClick={() => navigate(`/products/${cat.name}`)}
                     >
                         <span className="sidebar-name">{cat.name}</span>
-                        <img src={IconNext} className="iconNext"/>
+                        <img src={IconNext} alt="icon next" className="iconNext"/>
 
                     </div>
                 );

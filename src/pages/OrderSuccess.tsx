@@ -41,7 +41,7 @@ const OrderSuccess = () => {
         <div className="success-page">
             <div className="success-container">
                 <div className="success-icon-box">
-                    <img src={iconCheck} />
+                    <img src={iconCheck} alt="check success icon"/>
                 </div>
 
                 <h1 className="success-title">Order Successful!</h1>
